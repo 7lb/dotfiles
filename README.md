@@ -1,0 +1,18 @@
+## Instructions
+### Clone in ~
+`cd
+git clone git@github.com:7lb/dotfiles.git`
+
+### Create symlinks in `$XDG_CONFIG`
+`ln -s ~/.dotfiles/compton ~/.config/compton
+ln -s ~/.dotfiles/fish ~/.config/fish
+ln -s ~/.dotfiles/i3 ~/.config/i3
+ln -s ~/.dotfiles/nvim ~/.config/nvim`
+
+### Install dein for nvim plugin management
+`curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
+cat installer.sh | less
+sh installer.sh .config/nvim/dein`
+
+### Update nvim plugins
+`nvim -c "call dein#update() | q"`

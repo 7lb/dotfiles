@@ -1,0 +1,152 @@
+# variable definitions
+# dmenu settings
+set $dmenu_width 1536
+set $dmenu_height 54
+set $x_offset 192
+set $y_offset 513
+
+# colors
+set $bg_normal      #282828
+set $bg_normal_t    #282828aa
+set $bg_selected    #fabd2f
+set $bg_selected_t  #fabd2faa
+set $bg_urgent      #fb4934
+
+# workspaces string
+set $ws1 "1:"
+set $ws2 "2:"
+set $ws3 "3:"
+set $ws4 "4:"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws0 "10:"
+
+# often-used programs
+set $browser    "(?i)firefox"
+set $vplayer    "(?i)mpv"
+set $torrent    "(?i)rtorrent"
+set $editor     "(?i)nvim"
+
+# windows button
+set $mod Mod4
+
+# for window titles and bar
+font pango:Source\ Code\ Pro, FontAwesome 11
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# start a terminal
+bindsym $mod+Return exec i3-sensible-terminal -e fish
+
+# kill focused window
+bindsym $mod+Shift+q kill
+
+# start dmenu (a program launcher)
+bindsym $mod+r exec dmenu_term -fn "Source Code Pro-15" -o 0.77 -dim 0.77 -x $x_offset -y $y_offset -w $dmenu_width -h $dmenu_height -nb "$bg_normal" -nf "$bg_selected" -sb "$bg_selected" -sf "$bg_normal"
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# split in horizontal or vertical
+bindsym $mod+x split h
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+t layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+Shift+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+bindsym $mod+d focus child
+
+# workspace settings
+bindsym $mod+Right workspace next
+bindsym $mod+Left workspace prev
+
+assign [class=$browser]     $ws2
+assign [class=$vplayer]     $ws3
+assign [instance=$editor]   $ws4
+assign [instance=$torrent]  $ws0
+
+for_window [class=$browser      urgent="new"] focus
+for_window [class=$vplayer      urgent="new"] focus
+for_window [instance=$editor    urgent="new"] focus
+
+# switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws0
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws0
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+################################################################################
+# finds out, if available)
+bar {
+    i3bar_command i3bar -t
+    status_command i3blocks -c ~/.config/i3/blocks.conf
+    mode hide
+    strip_workspace_numbers yes
+    height 30
+    separator_symbol " "
+    colors {
+        background $bg_normal_t
+        #                   border          background      text
+        focused_workspace   $bg_selected    $bg_selected    $bg_normal
+        inactive_workspace  $bg_normal_t    $bg_normal_t    $bg_selected_t
+        urgent_workspace    $bg_urgent      $bg_urgent      $bg_normal
+    }
+}
+bindsym $mod+m bar mode toggle
+
+gaps inner 10
+smart_gaps on
+for_window [class="^.*"] border pixel 0

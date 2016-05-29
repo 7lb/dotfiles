@@ -1,0 +1,32 @@
+#!/bin/bash
+
+term_programs="
+    nvim
+    rtorrent
+"
+
+autosudo_term_programs="
+    wifi-menu
+"
+
+exes=$(echo $PATH | tr ":" "\n")
+cmd=$(stest -flx $exes | dmenu "$@")
+dosu=$([[ $autosudo_term_programs =~ "$cmd" ]] && echo sudo)
+
+run() {
+    urxvtc -name \"$1\" -e bash --login -ic \"$1\" &
+}
+
+run_sudo() {
+    urxvtc -name \"$1\" -e bash --login -ic "sudo \"$1\"" &
+}
+
+if [[ $term_programs =~ "$cmd" ]]
+    then run \"$cmd\"; exit 0
+fi
+
+if [[ $autosudo_term_programs =~ "$cmd" ]]
+    then run_sudo \"$cmd\"; exit 0
+fi
+
+bash -c "$cmd" &
