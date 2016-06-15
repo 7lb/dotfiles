@@ -13,6 +13,7 @@ feh --bg-fill ~/walls/wallhaven-52892.jpg &
 synclient HorizScrollDelta=10 &
 synclient VertScrollDelta=50 &
 synclient HorizEdgeScroll=1 &
+synclient TapButton1=1 &
 synclient TapButton2=3 &
 synclient TapButton3=2 &
 
