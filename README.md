@@ -11,6 +11,7 @@ ln -s ~/.dotfiles/compton ~/.config/compton
 ln -s ~/.dotfiles/fish ~/.config/fish  
 ln -s ~/.dotfiles/i3 ~/.config/i3  
 ln -s ~/.dotfiles/nvim ~/.config/nvim
+ln -s ~/.dotfiles/xinitrc ~/.xinitrc
 ```
 
 ### Install dein for nvim plugin management
