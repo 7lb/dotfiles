@@ -9,7 +9,7 @@ call dein#add('scrooloose/nerdtree')
 call dein#add('ctrlpvim/ctrlp.vim')
 call dein#add('vim-scripts/Mark--Karkat')
 call dein#add('morhetz/gruvbox')
-call dein#add('rust-lang/rust.vim')
+call dein#add('jessekphillips/d.vim')
 
 call dein#end()
 
@@ -62,7 +62,7 @@ if has ("autocmd")
     autocmd fileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
     " Closes vim if last open window is NERDTree
-    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif 
+    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 endif
 
