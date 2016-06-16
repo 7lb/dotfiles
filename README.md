@@ -12,6 +12,8 @@ ln -s ~/.dotfiles/fish ~/.config/fish
 ln -s ~/.dotfiles/i3 ~/.config/i3  
 ln -s ~/.dotfiles/nvim ~/.config/nvim
 ln -s ~/.dotfiles/xinitrc ~/.xinitrc
+ln -s ~/.dotfiles/Xresources ~/.Xresources
+ln -s ~/.dotfiles/xbindkeysrc ~/.xbindkeysrc
 ```
 
 ### Install dein for nvim plugin management

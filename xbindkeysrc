@@ -1,0 +1,27 @@
+# Increase brightness
+"xbacklight -inc 6.66"
+    XF86MonBrightnessUp
+
+# Decrease brightness
+"xbacklight -dec 6.66"
+    XF86MonBrightnessDown
+
+# Sleep
+"systemctl suspend"
+	XF86Sleep
+
+# Increase volume
+"amixer -c 0 set Master 4.50dB+"
+	XF86AudioRaiseVolume
+
+# Decease volume
+    "amixer -c 0 set Master 4.50dB-"
+	XF86AudioLowerVolume
+
+# Toggle mute
+"amixer -c 0 set Master toggle"
+	XF86AudioMute
+
+# Lock screen
+"physlock"
+	Control+Alt + l
