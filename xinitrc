@@ -10,12 +10,10 @@ xbindkeys -p &
 feh --bg-fill ~/walls/wallhaven-52892.jpg &
 
 # Touchpad
-synclient HorizScrollDelta=10 &
-synclient VertScrollDelta=50 &
-synclient HorizEdgeScroll=1 &
-synclient TapButton1=1 &
-synclient TapButton2=3 &
-synclient TapButton3=2 &
+# Enable tapping
+xinput set-prop 12 274 1 &
+# Enable drag lock
+xinput set-prop 12 278 1 &
 
 # Screen
 xset -dpms &
