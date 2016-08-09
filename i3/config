@@ -34,7 +34,7 @@ set $editor     "(?i)nvim"
 set $mod Mod4
 
 # for window titles and bar
-font pango:Source\ Code\ Pro, FontAwesome 11
+font pango:Fantasque\ Sans\ Mono, FontAwesome 11
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -46,7 +46,7 @@ bindsym $mod+Return exec i3-sensible-terminal -e fish
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+r exec dmenu_term -fn "Source Code Pro-15" -o 0.77 -dim 0.77 -x $x_offset -y $y_offset -w $dmenu_width -h $dmenu_height -nb "$bg_normal" -nf "$bg_selected" -sb "$bg_selected" -sf "$bg_normal"
+bindsym $mod+r exec dmenu_term -fn "Fantasque Sans Mono-18" -o 0.77 -dim 0.77 -x $x_offset -y $y_offset -w $dmenu_width -h $dmenu_height -nb "$bg_normal" -nf "$bg_selected" -sb "$bg_selected" -sf "$bg_normal"
 
 # change focus
 bindsym $mod+h focus left
