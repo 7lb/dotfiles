@@ -29,6 +29,6 @@ xrdb ~/.Xresources &
 compton --config ~/.config/compton/compton.conf -b
 
 # Make Qt 5 apps look and feel the same as gtk+ ones
-export QT_STYLE_OVERRIDE=GTK+
+export QT_STYLE_OVERRIDE='gtk2'
 
 exec i3
