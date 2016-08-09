@@ -10,6 +10,7 @@ call dein#add('ctrlpvim/ctrlp.vim')
 call dein#add('vim-scripts/Mark--Karkat')
 call dein#add('morhetz/gruvbox')
 call dein#add('jessekphillips/d.vim')
+call dein#add('neovimhaskell/haskell-vim')
 
 call dein#end()
 
