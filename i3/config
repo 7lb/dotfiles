@@ -34,7 +34,7 @@ set $editor     "(?i)nvim"
 set $mod Mod4
 
 # for window titles and bar
-font pango:Fantasque\ Sans\ Mono, FontAwesome 11
+font pango:Fantasque Sans Mono, FontAwesome 13
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
