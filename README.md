@@ -10,10 +10,15 @@ git clone git@github.com:7lb/dotfiles.git
 ln -s ~/.dotfiles/compton ~/.config/compton  
 ln -s ~/.dotfiles/fish ~/.config/fish  
 ln -s ~/.dotfiles/i3 ~/.config/i3  
-ln -s ~/.dotfiles/nvim ~/.config/nvim
-ln -s ~/.dotfiles/xinitrc ~/.xinitrc
-ln -s ~/.dotfiles/Xresources ~/.Xresources
+ln -s ~/.dotfiles/nvim ~/.config/nvim  
+ln -s ~/.dotfiles/xinitrc ~/.xinitrc  
+ln -s ~/.dotfiles/Xresources ~/.Xresources  
 ln -s ~/.dotfiles/xbindkeysrc ~/.xbindkeysrc
+```
+
+### Copy dmenu wrapper to /usr/bin
+```sh
+sudo cp dmenu_term /usr/bin  
 ```
 
 ### Install dein for nvim plugin management
