@@ -63,7 +63,10 @@ if has ("autocmd")
     autocmd fileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
     " Closes vim if last open window is NERDTree
-    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+    " Automatically enter insert mode when switching to a terminal
+    autocmd BufWinEnter,WinEnter term://* startinsert
 
 endif
 
@@ -78,6 +81,22 @@ set foldlevel=99
 
 " Mappings
 let mapleader=","
+
+" Navigate splits with less hassle
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+
+" Make Esc in termal mode behave like it should
+tnoremap <Esc> <C-\><C-n>
+
+" Auto-Esc when moving away from a terminal window
+" Recursive maps so they map to the remapped Esc and <C-*> shortcuts
+tmap <C-h> <Esc><C-h>
+tmap <C-j> <Esc><C-j>
+tmap <C-k> <Esc><C-k>
+tmap <C-l> <Esc><C-l>
 
 " Autosource nvim init file when it is edited
 if has ("autocmd")
