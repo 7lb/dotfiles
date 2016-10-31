@@ -61,6 +61,9 @@ if has ("autocmd")
     autocmd fileType make setlocal ts=4 sts=4 sw=4 noexpandtab
     autocmd fileType python setlocal foldmethod=indent
     autocmd fileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+    autocmd filetype javascript setlocal ts=2 sts=2 sw=2 expandtab
+    autocmd filetype html setlocal ts=2 sts=2 sw=2 expandtab
+    autocmd filetype css setlocal ts=2 sts=2 sw=2 expandtab
 
     " Closes vim if last open window is NERDTree
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
