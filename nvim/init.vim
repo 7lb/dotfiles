@@ -11,8 +11,23 @@ call dein#add('vim-scripts/Mark--Karkat')
 call dein#add('morhetz/gruvbox')
 call dein#add('jessekphillips/d.vim')
 call dein#add('neovimhaskell/haskell-vim')
+call dein#add('vim-syntastic/syntastic')
+call dein#add('rust-lang/rust.vim')
 
 call dein#end()
+
+" Let rust.vim automatically format on save
+let g:rustfmt_autosave = 1
+
+" Let syntastic do its thing
+set statusline +=%#warningmsg#
+set statusline +=%{SyntasticStatuslineFlag()}
+set statusline +=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 " NERDTree options
 let NERDTreeIgnore = ['\.pyc$']

@@ -7,13 +7,13 @@ xset r rate 180 &
 xbindkeys -p &
 
 # Background
-feh --bg-fill ~/walls/wallhaven-52892.jpg &
+feh --bg-fill ~/walls/wallhaven-132205.jpg &
 
 # Touchpad
 # Enable tapping
-xinput set-prop 12 274 1 &
+xinput set-prop "ETPS/2 Elantech Touchpad" 273 1 &
 # Enable drag lock
-xinput set-prop 12 278 1 &
+xinput set-prop "ETPS/2 Elantech Touchpad" 277 1 &
 
 # Screen
 xset -dpms &

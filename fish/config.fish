@@ -1,4 +1,5 @@
 set fish_greeting ""
+set PATH ~/.cargo/bin $PATH
 
 function ssh_agent --description 'launch the ssh-agent and add the id_rsa identity'
     if begin
