@@ -1,7 +1,6 @@
 " Dein stuff
 set runtimepath^=~/.config/nvim/dein/repos/github.com/Shougo/dein.vim
 call dein#begin(expand('~/.config/nvim/dein/'))
-"call dein#add('~/.config/nvim/dein/')
 call dein#add('Shougo/dein.vim')
 
 " Plugins
@@ -9,12 +8,21 @@ call dein#add('scrooloose/nerdtree')
 call dein#add('ctrlpvim/ctrlp.vim')
 call dein#add('vim-scripts/Mark--Karkat')
 call dein#add('morhetz/gruvbox')
+call dein#add('vim-syntastic/syntastic')
+
+" Language plugins
 call dein#add('jessekphillips/d.vim')
 call dein#add('neovimhaskell/haskell-vim')
-call dein#add('vim-syntastic/syntastic')
 call dein#add('rust-lang/rust.vim')
 
+call dein#add('fatih/vim-go')
+call dein#add('Shougo/deoplete.nvim')
+call dein#add('zchee/deoplete-go', {'build': 'make'})
+
 call dein#end()
+
+" Enable deoplete
+let g:deoplete#enable_at_startup = 1
 
 " Let rust.vim automatically format on save
 let g:rustfmt_autosave = 1
