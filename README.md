@@ -1,8 +1,7 @@
 ## Instructions
 ### Clone in `~`
 ```sh
-cd  
-git clone git@github.com:7lb/dotfiles.git
+git clone git@github.com:7lb/dotfiles.git ~/.dotfiles
 ```
 
 ### Create symlinks
@@ -19,7 +18,7 @@ ln -s ~/.dotfiles/rtorrent.rc ~/.rtorrent.rc
 
 ### Copy dmenu wrapper to /usr/bin
 ```sh
-sudo cp dmenu_term /usr/bin  
+sudo cp ~/.dotfiles/dmenu_term /usr/bin  
 ```
 
 ### Enhance perceived desktop performance
@@ -32,7 +31,8 @@ sudo echo "vm.vfs_cache_pressure=50" >> /etc/sysctl.d/99-sysctl.conf
 ```sh
 curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh  
 cat installer.sh | less  
-sh installer.sh .config/nvim/dein
+sh installer.sh ~/.config/nvim/dein  
+rm installer.sh
 ```
 
 ### Update nvim plugins
