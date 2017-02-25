@@ -16,3 +16,5 @@ function ssh_agent --description 'launch the ssh-agent and add the id_rsa identi
     ssh-add -l | grep -q $fingerprint
         or ssh-add $identity
 end
+
+alias d2 "begin; set -lx WINEARCH win32; set -lx WINEPREFIX ~/.bottles/d2; wine ~/.bottles/d2/drive_c/Program\ Files/Diablo\ II/D2SE.exe; end"
