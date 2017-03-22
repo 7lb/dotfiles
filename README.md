@@ -14,6 +14,7 @@ ln -s ~/.dotfiles/xinitrc ~/.xinitrc
 ln -s ~/.dotfiles/Xresources ~/.Xresources  
 ln -s ~/.dotfiles/xbindkeysrc ~/.xbindkeysrc  
 ln -s ~/.dotfiles/rtorrent.rc ~/.rtorrent.rc
+ln -s ~/.dotfiles/sqliterc ~/.sqliterc
 ```
 
 ### Copy dmenu wrapper to /usr/bin
