@@ -3,6 +3,7 @@
 term_programs="
     nvim
     rtorrent
+    mpsyt
 "
 
 autosudo_term_programs="
