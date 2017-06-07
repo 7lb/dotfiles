@@ -1,7 +1,6 @@
 set fish_greeting ""
-set PATH ~/.cargo/bin $PATH
 
-function ssh_agent --description 'launch the ssh-agent and add the id_rsa identity'
+function ssh_agent
     if begin
             set -q SSH_AGENT_PID
             and kill -0 $SSH_AGENT_PID
@@ -17,5 +16,4 @@ function ssh_agent --description 'launch the ssh-agent and add the id_rsa identi
         or ssh-add $identity
 end
 
-alias d2 "begin; set -lx WINEARCH win32; set -lx WINEPREFIX ~/.bottles/d2; wine ~/.bottles/d2/drive_c/Program\ Files/Diablo\ II/D2SE.exe; end"
 alias sql /usr/bin/sqlite3
