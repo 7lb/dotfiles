@@ -11,7 +11,7 @@ autosudo_term_programs="
 "
 
 exes=$(echo $PATH | tr ":" "\n")
-cmd=$(stest -flx $exes | dmenu "$@")
+cmd=$(stest -flx $exes | dmenu_wrapper "$@")
 dosu=$([[ $autosudo_term_programs =~ "$cmd" ]] && echo sudo)
 
 run() {

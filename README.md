@@ -1,42 +1,27 @@
 ## Instructions
-### Clone in `~`
+### Clone in `~/.dotfiles`
 ```sh
-git clone git@github.com:7lb/dotfiles.git ~/.dotfiles
+git clone https://github.com/7lb/dotfiles ~/.dotfiles
 ```
 
-### Create symlinks
+### Install base system
 ```sh
-ln -s ~/.dotfiles/compton ~/.config/compton  
-ln -s ~/.dotfiles/fish ~/.config/fish  
-ln -s ~/.dotfiles/i3 ~/.config/i3  
-ln -s ~/.dotfiles/nvim ~/.config/nvim  
-ln -s ~/.dotfiles/xinitrc ~/.xinitrc  
-ln -s ~/.dotfiles/Xresources ~/.Xresources  
-ln -s ~/.dotfiles/xbindkeysrc ~/.xbindkeysrc  
-ln -s ~/.dotfiles/rtorrent.rc ~/.rtorrent.rc
-ln -s ~/.dotfiles/sqliterc ~/.sqliterc
+~/.dotfiles/install_base.sh
 ```
 
-### Copy dmenu wrapper to /usr/bin
+### If installing bspwm
 ```sh
-sudo cp ~/.dotfiles/dmenu_term /usr/bin  
+~/.dotfiles/bspwm/install_bspwm.sh
 ```
 
-### Enhance perceived desktop performance
+### If installing i3: create symlinks
 ```sh
-sudo echo "vm.swappiness=1" >> /etc/sysctl.d/99-sysctl.conf  
-sudo echo "vm.vfs_cache_pressure=50" >> /etc/sysctl.d/99-sysctl.conf
-```
-
-### Install dein for nvim plugin management
-```sh
-curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh  
-cat installer.sh | less  
-sh installer.sh ~/.config/nvim/dein  
-rm installer.sh
-```
-
-### Update nvim plugins
-```sh
-nvim -c "call dein#update() | q"
+ln -s ~/.dotfiles/i3/compton ~/.config/compton  
+ln -s ~/.dotfiles/i3/fish ~/.config/fish  
+ln -s ~/.dotfiles/i3/i3 ~/.config/i3  
+ln -s ~/.dotfiles/i3/nvim ~/.config/nvim  
+ln -s ~/.dotfiles/i3/xinitrc ~/.xinitrc  
+ln -s ~/.dotfiles/i3/Xresources ~/.Xresources  
+ln -s ~/.dotfiles/i3/xbindkeysrc ~/.xbindkeysrc  
+ln -s ~/.dotfiles/i3/rtorrent.rc ~/.rtorrent.rc
 ```

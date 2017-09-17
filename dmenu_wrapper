@@ -1,0 +1,30 @@
+#! /bin/sh
+
+# size definitions
+dmenu_width=1536
+dmenu_height=54
+x_offset=192
+y_offset=513
+
+# color definitions
+bg_normal="#282828"
+bg_normal_t="#282828aa"
+bg_selected="#fabd2f"
+bg_selected_t="#fabd2faa"
+bg_urgent="#fb4934"
+
+# misc definitions
+font="Source Code Pro-18"
+dim_opacity=0.77
+
+dmenu \
+	-fn "$font" \
+	-x $x_offset \
+	-y $y_offset \
+	-w $dmenu_width \
+	-h $dmenu_height \
+	-nb $bg_normal \
+	-nf $bg_selected \
+	-sb $bg_selected \
+	-sf $bg_normal \
+	-dim $dim_opacity

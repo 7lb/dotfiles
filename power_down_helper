@@ -1,0 +1,17 @@
+#! /bin/sh
+
+function get_input() {
+	echo -e "shutdown\nsuspend\nrestart" | dmenu_wrapper
+}
+
+user_input=$(get_input)
+
+if [[ $user_input == "shutdown" ]]; then
+	bspc quit;
+	systemctl poweroff
+elif [[ $user_input == "suspend" ]]; then
+	systemctl suspend
+elif [[ $user_input == "restart" ]]; then
+	bspc quit;
+	systemctl reboot
+fi
