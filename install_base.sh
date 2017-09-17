@@ -13,11 +13,14 @@ sudo pacman -Sy \
 	polkit \
 	firefox \
 	pulseaudio \
-	openssh
+	openssh \
+	compton
 
 # Create symlinks
 mkdir -p ~/.config/nvim
+mkdir -p ~/.config/compton
 ln -s ~/.dotfiles/nvim/init.vim ~/.config/nvim/init.vim
+ln -s ~/.dotfiles/compton/compton.conf ~/.config/compton/compton.conf
 ln -s ~/.dotfiles/sqliterc ~/.sqliterc
 
 # Install cower and pacaur
