@@ -30,3 +30,4 @@ sudo pacman -Rnds \
     tracker
 
 systemctl enable NetworkManager.service
+systemctl enable gdm.service
