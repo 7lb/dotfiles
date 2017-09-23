@@ -15,11 +15,11 @@ cmd=$(stest -flx $exes | dmenu_wrapper "$@")
 dosu=$([[ $autosudo_term_programs =~ "$cmd" ]] && echo sudo)
 
 run() {
-    urxvtc -name \"$1\" -e bash --login -ic \"$1\" &
+    termite --name \"$1\" -e "bash --login -ic \"$1\"" &
 }
 
 run_sudo() {
-    urxvtc -name \"$1\" -e bash --login -ic "sudo \"$1\"" &
+    termite --name \"$1\" -e "bash --login -ic 'sudo \"$1\"'" &
 }
 
 if [[ $term_programs =~ "$cmd" ]]

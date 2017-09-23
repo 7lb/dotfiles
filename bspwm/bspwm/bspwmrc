@@ -1,0 +1,15 @@
+#! /bin/sh
+
+bspc monitor -d 1 2 3 4 5
+
+bspc config border_width	1
+bspc config window_gap		10
+
+bspc config pointer_modifier mod4
+bspc config click_to_focus button1
+bspc config pointer_action1 move
+bspc config pointer_action2 resize_side
+bspc config pointer_action3 resize_corner
+
+bspc rule -a Firefox desktop=^2 follow=on
+bspc rule -a mpv desktop=^3 follow=on

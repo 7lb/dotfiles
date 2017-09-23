@@ -1,0 +1,72 @@
+# terminal emulator
+super + Return
+	termite
+
+# close bspwm
+super + ctrl + q
+	bspc quit
+
+# close node
+super + shift + q
+	bspc node -c
+
+# reload sxhkd config
+super + shift + r
+	kill -s USR1 `pidof sxhkd`
+
+# navigate nodes
+super + {h,j,k,l}
+	bspc node {west,south,north,east} -f
+
+# navigate desktops
+super + {1-5}
+	bspc desktop -s {1-5}
+
+# move nodes
+super + shift + {1-5}
+	bspc node -d {1-5}
+
+# toggle fullscreen
+super + f
+	state={fullscreen,tiled}; \
+	bspc query -N -n "focused.$\{state\}" && state=tiled; \
+	bspc node -t "$state"
+
+# toggle floating
+super + space
+	state={floating,tiled}; \
+	bspc query -N -n "focused.$\{state\}" && state=tiled; \
+	bspc node -t "$state"
+
+# lock system
+ctrl + alt + l
+	physlock
+
+# dmenu
+super + r
+	/usr/bin/dmenu_term
+
+#
+# brightness control
+#
+XF86MonBrightnessDown
+	brightnessctl s 5%-
+XF86MonBrightnessUp
+	brightnessctl s +5%
+
+#
+# volume control
+#
+XF86AudioRaiseVolume
+	amixer -c 0 set Master 4.50dB+
+
+XF86AudioLowerVolume
+	amixer -c 0 set Master 4.50dB-
+
+XF86AudioMute
+	amixer -c 0 set Master toggle && \
+	amixer -c 0 set Speaker on
+
+# show custom shutdown menu when power button pressed
+XF86PowerOff
+	/usr/bin/power_down_helper

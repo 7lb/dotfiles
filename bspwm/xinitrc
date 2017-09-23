@@ -1,0 +1,15 @@
+# Keyboard
+xset r rate 180 &
+setxkbmap -option compose:ralt
+
+# Touchpad
+# Enable tapping
+xinput set-prop "DLL075B:01 06CB:76AF Touchpad" 277 1 &
+# Enable drag lock
+xinput set-prop "DLL075B:01 06CB:76AF Touchpad" 281 1 &
+
+# compositor
+compton --config ~/.config/compton/compton.conf -b
+
+sxhkd -c /home/l/.config/bspwm/sxhkdrc &
+exec bspwm

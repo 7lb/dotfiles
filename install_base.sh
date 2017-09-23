@@ -6,7 +6,8 @@ sudo echo "vm.vfs_cache_pressure=50" >> /etc/sysctl.d/99-sysctl.conf
 
 # Install common packages
 sudo pacman -Sy \
-	nvim \
+	neovim \
+	python-neovim \
 	termite \
 	ttf-dejavu \
 	adobe-source-code-pro-fonts \
