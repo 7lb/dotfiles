@@ -28,9 +28,12 @@ nvim_set_keymap("t", "<C-j>", "<Esc><C-j>", {})
 nvim_set_keymap("t", "<C-k>", "<Esc><C-k>", {})
 nvim_set_keymap("t", "<C-l>", "<Esc><C-l>", {})
 
--- command center
+-- telescope
 local cmd_center = "<CMD>Telescope command_center<CR>"
-nvim_set_keymap("n", "<C-p>", cmd_center, { noremap = true })
+local find_files = "<CMD>Telescope find_files<CR>"
+
+nvim_set_keymap("n", "<C-l>", cmd_center, { noremap = true })
+nvim_set_keymap("n", "<C-p>", find_files, { noremap = true })
 
 -- dap
 local dap_toggle_breakpoint = "<CMD>lua require('dap').toggle_breakpoint()<CR>"
