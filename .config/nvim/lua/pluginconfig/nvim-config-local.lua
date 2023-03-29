@@ -1,1 +1,3 @@
-require("config-local").setup()
+require("config-local").setup({
+	lookup_parents = true,
+})

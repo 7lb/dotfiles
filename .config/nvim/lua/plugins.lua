@@ -34,6 +34,8 @@ return require("packer").startup(function(use)
 	use "tpope/vim-repeat"
 	use "ggandor/leap.nvim"
 	use "klen/nvim-config-local"
+	use "stevearc/dressing.nvim"
+	use "rcarriga/nvim-notify"
 
 	-- treesitter
 	use {
@@ -53,7 +55,6 @@ return require("packer").startup(function(use)
 		tag = "0.1.1",
 		requires = { "nvim-lua/plenary.nvim" },
 	}
-	use "nvim-telescope/telescope-ui-select.nvim"
 	use "FeiyouG/command_center.nvim"
 
 	-- dap
