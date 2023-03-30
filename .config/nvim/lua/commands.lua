@@ -1,1 +1,0 @@
--- vim.api.nvim_create_user_command("Build", "!cmake --build build --parallel", {})

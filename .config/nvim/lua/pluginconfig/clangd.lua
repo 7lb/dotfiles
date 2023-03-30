@@ -9,16 +9,16 @@ lspconfig.clangd.setup({
 		vim.opt.signcolumn = "yes"
 
 		-- code navigation
-		vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>Telescope lsp_definitions<CR>", { noremap = true, silent = true })
-		vim.api.nvim_buf_set_keymap(bufnr, "n", "go", "<cmd>ClangdSwitchSourceHeader<CR>", { noremap = true, silent = true })
-		vim.api.nvim_buf_set_keymap(bufnr, "n", "gy", "<cmd>Telescope lsp_type_definitions<CR>", { noremap = true, silent = true })
-		vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>Telescope lsp_references<CR>", { noremap = true, silent = true })
-		vim.api.nvim_buf_set_keymap(bufnr, "n", "g?", "<cmd>lua vim.lsp.buf.signature_help()<CR>", { noremap = true, silent = true })
-		vim.api.nvim_buf_set_keymap(bufnr, "n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", { noremap = true, silent = true })
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<CMD>Telescope lsp_definitions<CR>", { noremap = true, silent = true })
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "go", "<CMD>ClangdSwitchSourceHeader<CR>", { noremap = true, silent = true })
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "gy", "<CMD>Telescope lsp_type_definitions<CR>", { noremap = true, silent = true })
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<CMD>Telescope lsp_references<CR>", { noremap = true, silent = true })
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "g?", "<CMD>lua vim.lsp.buf.signature_help()<CR>", { noremap = true, silent = true })
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "gh", "<CMD>lua vim.lsp.buf.hover()<CR>", { noremap = true, silent = true })
 
 		-- edit actions
-		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<CR>", { noremap = true, silent = true })
-		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>q", "<cmd>lua vim.lsp.buf.code_action()<CR>", { noremap = true, silent = true })
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>r", "<CMD>lua vim.lsp.buf.rename()<CR>", { noremap = true, silent = true })
+		vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>q", "<CMD>lua vim.lsp.buf.code_action()<CR>", { noremap = true, silent = true })
 	end,
 
 	flags = {

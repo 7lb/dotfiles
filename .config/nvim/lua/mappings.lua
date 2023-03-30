@@ -32,7 +32,7 @@ nvim_set_keymap("t", "<C-l>", "<Esc><C-l>", {})
 local cmd_center = "<CMD>Telescope command_center<CR>"
 local find_files = "<CMD>Telescope find_files<CR>"
 
-nvim_set_keymap("n", "<C-m>", cmd_center, { noremap = true })
+nvim_set_keymap("n", "<A-p>", cmd_center, { noremap = true })
 nvim_set_keymap("n", "<C-p>", find_files, { noremap = true })
 
 -- dap
