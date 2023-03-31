@@ -1,29 +1,27 @@
-local opt = vim.opt
-
 -- colors
 vim.cmd("syntax on")
-opt.background = "dark"
-opt.termguicolors = true
+vim.o.background = "dark"
+vim.o.termguicolors = true
 vim.cmd("colorscheme no-clown-fiesta")
 
 -- default indentation is 4-wide tabs
-opt.tabstop = 4
-opt.shiftwidth = 4
-opt.softtabstop = 4
-opt.expandtab = false
+vim.o.tabstop = 4
+vim.o.shiftwidth = 4
+vim.o.softtabstop = 4
+vim.o.expandtab = false
 
 -- show tabs, trailing whitespace, and newlines
-opt.list = true
-opt.listchars = "tab:▸ ,trail:·,eol:¬"
+vim.o.list = true
+vim.opt.listchars = { tab = "▸ ", trail = "·" }
 
 -- 80 usable
-opt.colorcolumn = "81"
+vim.o.colorcolumn = "81"
 
-opt.splitright = true
-opt.splitbelow = true
-opt.foldlevel = 99
+vim.o.splitright = true
+vim.o.splitbelow = true
+vim.o.foldlevel = 99
 
-opt.number = true
-opt.relativenumber = false
+vim.o.number = true
+vim.o.relativenumber = false
 
-opt.hidden = true
+vim.o.hidden = true
