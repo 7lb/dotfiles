@@ -25,7 +25,6 @@ return require("packer").startup(function(use)
 	use "hrsh7th/cmp-nvim-lsp"
 	use "saadparwaiz1/cmp_luasnip"
 	use "L3MON4D3/LuaSnip"
-	use "no-clown-fiesta/no-clown-fiesta.nvim"
 	use "nvim-tree/nvim-web-devicons"
 	use "folke/trouble.nvim"
 	use "nvim-lua/plenary.nvim"
@@ -36,6 +35,7 @@ return require("packer").startup(function(use)
 	use "klen/nvim-config-local"
 	use "stevearc/dressing.nvim"
 	use "rcarriga/nvim-notify"
+	use "rktjmp/lush.nvim"
 
 	-- treesitter
 	use {

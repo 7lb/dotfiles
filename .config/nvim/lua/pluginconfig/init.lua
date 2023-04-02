@@ -12,3 +12,5 @@ require("pluginconfig.telescope-command-center")
 require("pluginconfig.toggleterm")
 require("pluginconfig.treesitter")
 require("pluginconfig.trouble")
+
+require("lush")(require("pluginconfig.nero"))
