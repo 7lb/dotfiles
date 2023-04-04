@@ -78,7 +78,7 @@ local Colors = {
 	Hardcoded = Palette.VisibleYellow,
 	Function = Palette.IcyGray,
 	Block = Palette.Indigo,
-	Conditional = Palette.VisibleRed,
+	Ternary = Palette.VisibleRed,
 	Special = Palette.Pink,
 
 	Todo = "#ff00ff",
@@ -102,7 +102,7 @@ local theme = lush(function(injectable_functions)
 		Function		{ fg = Colors.Function },
 
 		Statement		{ fg = Colors.Function },
-		Conditional		{ fg = Colors.Conditional, gui = "bold" },
+		Conditional		{ fg = Colors.Block },
 		Exception		{ fg = Colors.Block },
 		Keyword			{ fg = Colors.Text },
 		Label			{ fg = Colors.Hardcoded },
@@ -258,6 +258,7 @@ local theme = lush(function(injectable_functions)
 		--s("@boolean")				{ fg = Colors.Red },
 		--s("@comment")				{ Comment },
 		--s("@conditional")			{ fg = Colors.GrayBlue },
+		s("@conditional.ternary")	{ fg = Colors.Ternary, gui = "bold" },
 		--s("@constant")				{ fg = Colors.Text },
 		--s("@constant.builtin")		{ fg = Colors.Text },
 		s("@constructor")			{ Function },
