@@ -11,9 +11,12 @@ dap.configurations.cpp = {{
 	type = "lldb",
 	request = "launch",
 	program = function()
-		return vim.ui.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+		return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
 	end,
 	cwd = "${workspaceFolder}",
 	stopOnEntry = false,
 	args = {},
 }}
+
+dap.configurations.c = dap.configurations.cpp
+dap.configurations.rust = dap.configurations.cpp

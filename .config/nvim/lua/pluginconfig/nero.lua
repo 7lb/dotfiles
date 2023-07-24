@@ -117,8 +117,8 @@ local theme = lush(function(injectable_functions)
 
 		Type			{ fg = Colors.Text, gui = "bold" },
 		StorageClass	{ fg = Colors.Text },
-		Structure		{ fg = Colors.Todo },
-		Typedef			{ fg = Colors.Todo },
+		Structure		{ Type },
+		Typedef			{ Type },
 
 		Special			{ fg = Colors.Special },
 		Debug			{ fg = Colors.Todo },
