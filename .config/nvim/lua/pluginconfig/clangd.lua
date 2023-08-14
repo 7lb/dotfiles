@@ -35,5 +35,6 @@ lspconfig.clangd.setup({
 		"--completion-style=detailed",
 		"--fallback-style=webkit",
 		"--cross-file-rename",
+		"--header-insertion=iwyu",
 	},
 })
