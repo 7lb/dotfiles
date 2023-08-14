@@ -21,4 +21,7 @@ cmdc.add({{
 }, {
 	desc = "DAP UI",
 	cmd = "<CMD>lua require('dapui').toggle()<CR>",
+}, {
+	desc = "Sessions",
+	cmd = "<CMD>lua require('auto-session.session-lens').search_session()<CR>",
 }})

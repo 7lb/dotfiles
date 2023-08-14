@@ -36,7 +36,7 @@ nvim_set_keymap("n", "<A-p>", cmd_center, { noremap = true })
 nvim_set_keymap("n", "<C-p>", find_files, { noremap = true })
 
 -- dap
-local dap_toggle_breakpoint = "<CMD>lua require('dap').toggle_breakpoint()<CR>"
+local dap_toggle_breakpoint = "<CMD>lua require('persistent-breakpoints.api').toggle_breakpoint()<CR>"
 local dap_continue = "<CMD>lua require('dap').continue()<CR>"
 local dap_step_over = "<CMD>lua require('dap').step_over()<CR>"
 local dap_step_into = "<CMD>lua require('dap').step_into()<CR>"
