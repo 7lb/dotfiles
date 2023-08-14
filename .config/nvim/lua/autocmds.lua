@@ -24,7 +24,7 @@ vim.api.nvim_create_autocmd("fileType", {
 --
 -- enter insert mode when switching to a terminal window
 vim.api.nvim_create_autocmd({ "BufWinEnter", "WinEnter" }, {
-	group = buffer_gorup,
+	group = buffer_group,
 	pattern = "term://*",
 	command = "startinsert",
 })
