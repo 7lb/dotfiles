@@ -255,6 +255,13 @@ local theme = lush(function(injectable_functions)
 		CmpItemKindUnit					{ fg = Colors.Todo },
 		CmpItemKindValue				{ Constant },
 		CmpItemKindVariable				{ Identifier },
+
+		-- DAP
+		DapBreakpoint					{ fg = Colors.Hint, gui = "bold" },
+		DapBreakpointCondition			{ fg = DapBreakpoint.fg, gui = DapBreakpoint.gui },
+		DapBreakpointRejected			{ fg = DapBreakpoint.fg, gui = DapBreakpoint.gui },
+		DapLogPoint						{ fg = DapBreakpoint.fg, gui = DapBreakpoint.gui },
+		DapStopped						{ fg = DapBreakpoint.fg, gui = DapBreakpoint.gui },
 		
 		-- Treesitter
 		sym("@attribute")				{ fg = Colors.LowPrioText },

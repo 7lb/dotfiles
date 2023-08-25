@@ -29,3 +29,9 @@ require("dapui").setup({
 		size = 60,
 	}},
 })
+
+vim.fn.sign_define("DapBreakpoint", {text="•", texthl="DapBreakpoint", numhl="DapBreakpoint", linehl=""})
+vim.fn.sign_define("DapBreakpointCondition", {text="?", texthl="DapBreakpointCondition", numhl="DapBreakpointCondition", linehl=""})
+vim.fn.sign_define("DapBreakpointRejected", {text="×", texthl="DapBreakpointRejected", numhl="DapBreakpointRejected", linehl=""})
+vim.fn.sign_define("DapLogPoint", {text="L", texthl="DapLogPoint", numhl="DapLogPoint", linehl=""})
+vim.fn.sign_define("DapStopped", {text="→", texthl="DapStopped", numhl="DapStopped", linehl=""})

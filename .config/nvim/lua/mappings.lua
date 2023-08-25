@@ -18,6 +18,10 @@ nvim_set_keymap("n", "tX", ":tabonly<CR>", { noremap = true })
 nvim_set_keymap("n", "tn", ":tabnext<CR>", { noremap = true })
 nvim_set_keymap("n", "tN", ":tabprevious<CR>", { noremap = true })
 
+-- easier copy paste
+nvim_set_keymap("n", "<Leader>y", "\"+y", { noremap = true })
+nvim_set_keymap("n", "<Leader>p", "\"+p", { noremap = true })
+
 -- easy escape from terminal windows
 nvim_set_keymap("t", "<Esc>", "<C-\\><C-n>", { noremap = true })
 
@@ -37,6 +41,7 @@ nvim_set_keymap("n", "<C-p>", find_files, { noremap = true })
 
 -- dap
 local dap_toggle_breakpoint = "<CMD>lua require('persistent-breakpoints.api').toggle_breakpoint()<CR>"
+local dap_set_logpoint = "<CMD>lua require('dap').set_breakpoint(nil, nil, vim.fn.input('Msg: '))<CR>"
 local dap_continue = "<CMD>lua require('dap').continue()<CR>"
 local dap_step_over = "<CMD>lua require('dap').step_over()<CR>"
 local dap_step_into = "<CMD>lua require('dap').step_into()<CR>"
@@ -44,6 +49,7 @@ local dap_step_out = "<CMD>lua require('dap').step_out()<CR>"
 local dap_repl = "<CMD>lua require('dap').repl.open()<CR>"
 
 nvim_set_keymap("n", "<Leader>db", dap_toggle_breakpoint, { noremap = true })
+nvim_set_keymap("n", "<Leader>dl", dap_set_logpoint, { noremap = true })
 nvim_set_keymap("n", "<Leader>dc", dap_continue, { noremap = true })
 nvim_set_keymap("n", "<Leader>ds", dap_step_over, { noremap = true })
 nvim_set_keymap("n", "<Leader>di", dap_step_into, { noremap = true })
