@@ -1,0 +1,56 @@
+################################################################################
+# Prompt and prompt related
+################################################################################
+
+buildPrompt() {
+	local exitCode="$?"
+	local suffixPrivileged="# "
+	local suffixUnprivileged="$ "
+
+	local endColor="\[\e[0m\]"
+	local redFg="\[\e[31m\]"
+	local greenFg="\[\e[32m\]"
+	local yellowFg="\[\e[33m\]"
+
+	local prompt="┌ "
+
+	if [[ "$exitCode" != 0 ]]; then
+		prompt+="${redFg}$exitCode${endColor} | "
+	fi
+	
+
+	prompt+="\$(pwd)"
+
+	if [[ "$(pwdIsGitRepo)" == 1 ]]; then
+		prompt+=" | ${yellowFg}$(getCurrentGitBranch)${endColor}"
+	fi
+
+	prompt+="\n└ "
+	if [[ "$(id -u)" == 0 ]]; then
+		prompt+="$suffixPrivileged"
+	else
+		prompt+="$suffixUnprivileged"
+	fi
+
+	PS1="$prompt"
+}
+
+pwdIsGitRepo() {
+	local gitDir="$(git rev-parse --git-dir 2> /dev/null)"
+	if [[ "$gitDir" == "" ]]; then
+		echo 0
+	else
+		echo 1
+	fi
+}
+
+getCurrentGitBranch() {
+	echo "$(git rev-parse --abbrev-ref HEAD 2> /dev/null)"
+}
+
+################################################################################
+# Aliases
+################################################################################
+#
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
