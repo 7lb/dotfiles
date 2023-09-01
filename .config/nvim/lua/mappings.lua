@@ -55,3 +55,16 @@ nvim_set_keymap("n", "<Leader>ds", dap_step_over, { noremap = true })
 nvim_set_keymap("n", "<Leader>di", dap_step_into, { noremap = true })
 nvim_set_keymap("n", "<Leader>do", dap_step_out, { noremap = true })
 nvim_set_keymap("n", "<Leader>dr", dap_repl, { noremap = true })
+
+-- larry
+local larry_select_preset = "<CMD>lua require('larry').SelectPreset()<CR>"
+local larry_configure = "<CMD>lua require('larry').Configure()<CR>"
+local larry_build = "<CMD>lua require('larry').Build()<CR>"
+local larry_toggle_configure_view = "<CMD>lua require('larry').ToggleConfigureView()<CR>"
+local larry_toggle_build_view = "<CMD>lua require('larry').ToggleBuildView()<CR>"
+
+nvim_set_keymap("n", "<leader>lp", larry_select_preset, { noremap = true })
+nvim_set_keymap("n", "<leader>lc", larry_configure, { noremap = true })
+nvim_set_keymap("n", "<leader>lb", larry_build, { noremap = true })
+nvim_set_keymap("n", "<leader>lC", larry_toggle_configure_view, { noremap = true })
+nvim_set_keymap("n", "<leader>lB", larry_toggle_build_view, { noremap = true })
