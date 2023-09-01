@@ -28,4 +28,5 @@ vim.o.relativenumber = false
 vim.o.cursorline = true
 vim.o.hidden = true
 
-vim.o.autoread = true
+vim.go.autoread = true
+vim.opt.ignorecase = true
