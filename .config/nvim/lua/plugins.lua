@@ -38,6 +38,7 @@ return require("packer").startup(function(use)
 	use "rktjmp/lush.nvim"
 	use "Weissle/persistent-breakpoints.nvim"
 	use "rmagatti/auto-session"
+	use "konradmagnusson/larry"
 
 	-- treesitter
 	use {
