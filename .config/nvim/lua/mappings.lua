@@ -63,8 +63,8 @@ local larry_build = "<CMD>lua require('larry').Build()<CR>"
 local larry_toggle_configure_view = "<CMD>lua require('larry').ToggleConfigureView()<CR>"
 local larry_toggle_build_view = "<CMD>lua require('larry').ToggleBuildView()<CR>"
 
-nvim_set_keymap("n", "<leader>lp", larry_select_preset, { noremap = true })
-nvim_set_keymap("n", "<leader>lc", larry_configure, { noremap = true })
-nvim_set_keymap("n", "<leader>lb", larry_build, { noremap = true })
-nvim_set_keymap("n", "<leader>lC", larry_toggle_configure_view, { noremap = true })
-nvim_set_keymap("n", "<leader>lB", larry_toggle_build_view, { noremap = true })
+nvim_set_keymap("n", "<Leader>lp", larry_select_preset, { noremap = true })
+nvim_set_keymap("n", "<Leader>lc", larry_configure, { noremap = true })
+nvim_set_keymap("n", "<Leader>lb", larry_build, { noremap = true })
+nvim_set_keymap("n", "<Leader>lC", larry_toggle_configure_view, { noremap = true })
+nvim_set_keymap("n", "<Leader>lB", larry_toggle_build_view, { noremap = true })
