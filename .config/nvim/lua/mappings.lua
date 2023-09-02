@@ -33,7 +33,7 @@ nvim_set_keymap("t", "<C-k>", "<Esc><C-k>", {})
 nvim_set_keymap("t", "<C-l>", "<Esc><C-l>", {})
 
 -- telescope
-local cmd_center = "<CMD>Telescope command_center<CR>"
+local cmd_center = "<CMD>Telescope commander<CR>"
 local find_files = "<CMD>Telescope find_files<CR>"
 
 nvim_set_keymap("n", "<A-p>", cmd_center, { noremap = true })

@@ -1,4 +1,6 @@
-require("auto-session").setup({
+local M = {}
+
+M.opts = {
 	log_level = "error",
 	auto_session_suppress_dirs = {
 		"/",
@@ -6,4 +8,6 @@ require("auto-session").setup({
 		"~/Downloads",
 		"~/proj",
 	}
-})
+}
+
+return M

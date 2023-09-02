@@ -1,4 +1,6 @@
-require("nvim-treesitter.configs").setup({
+local M = {}
+
+M.opts = {
 	ensure_installed = {
 		"lua", "vim", "vimdoc", "query",
 		"c", "cpp", "bash"
@@ -10,4 +12,6 @@ require("nvim-treesitter.configs").setup({
 		enable = true,
 		updatetime = 25,
 	},
-})
+}
+
+return M

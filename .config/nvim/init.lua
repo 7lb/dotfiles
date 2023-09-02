@@ -1,5 +1,4 @@
 require("options")
 require("plugins")
-require("pluginconfig")
 require("mappings")
 require("autocmds")
