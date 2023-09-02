@@ -1,74 +1,92 @@
-local ensure_packer = function()
-  local fn = vim.fn
-  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-  if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({
-		'git',
-		'clone',
-		'--depth',
-		'1',
-		'https://github.com/wbthomason/packer.nvim',
-		install_path
-	})
-    vim.cmd("packadd packer.nvim")
-    return true
-  end
-  return false
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
 end
+vim.opt.rtp:prepend(lazypath)
 
-local packer_bootstrap = ensure_packer()
-
-return require("packer").startup(function(use)
-	use "wbthomason/packer.nvim"
-	use "neovim/nvim-lspconfig"
-	use "hrsh7th/nvim-cmp"
-	use "hrsh7th/cmp-nvim-lsp"
-	use "saadparwaiz1/cmp_luasnip"
-	use "L3MON4D3/LuaSnip"
-	use "nvim-tree/nvim-web-devicons"
-	use "folke/trouble.nvim"
-	use "nvim-lua/plenary.nvim"
-	use "RRethy/vim-illuminate"
-	use "akinsho/toggleterm.nvim"
-	use "tpope/vim-repeat"
-	use "ggandor/leap.nvim"
-	use "klen/nvim-config-local"
-	use "stevearc/dressing.nvim"
-	use "rcarriga/nvim-notify"
-	use "rktjmp/lush.nvim"
-	use "Weissle/persistent-breakpoints.nvim"
-	use "rmagatti/auto-session"
-	use "konradmagnusson/larry"
-
-	-- treesitter
-	use {
-		"nvim-treesitter/nvim-treesitter",
-		run = function()
-			local ts_update = require("nvim-treesitter.install").update({
-				with_sync = true
-			})
-			ts_update()
-		end,
-	}
-	use "nvim-treesitter/playground"
-
-	-- telescope
-	use {
-		"nvim-telescope/telescope.nvim",
-		tag = "0.1.1",
-		requires = { "nvim-lua/plenary.nvim" },
-	}
-	use "FeiyouG/command_center.nvim"
-
-	-- dap
-	use "mfussenegger/nvim-dap"
-	use "theHamsta/nvim-dap-virtual-text"
-	use {
+require("lazy").setup({{
+		"rmagatti/auto-session",
+		opts = require("pluginconfig.auto-session").opts,
+	}, {
+		"hrsh7th/cmp-nvim-lsp",
+	}, {
+		"hrsh7th/nvim-cmp",
+		dependencies = { "hrsh7th/cmp-nvim-lsp" },
+		config = require("pluginconfig.cmp").config,
+	}, {
+		"neovim/nvim-lspconfig",
+		config = require("pluginconfig.clangd").config,
+	}, {
+		"FeiyouG/commander.nvim",
+		init = require("pluginconfig.commander").init,
+		opts = require("pluginconfig.commander").opts,
+	}, {
+		"mfussenegger/nvim-dap",
+		config = require("pluginconfig.dap").config,
+	}, {
+		"theHamsta/nvim-dap-virtual-text",
+		dependencies = { "mfussenegger/nvim-dap" },
+	}, {
 		"rcarriga/nvim-dap-ui",
-		requires = { "mfussenegger/nvim-dap" },
-	}
-
-	if packer_bootstrap then
-		require('packer').sync()
-	end
-end)
+		dependencies = { "mfussenegger/nvim-dap" },
+		init = require("pluginconfig.dap-ui").init,
+		config = require("pluginconfig.dap-ui").config,
+		opts = require("pluginconfig.dap-ui").opts,
+	}, {
+		"nvim-tree/nvim-web-devicons",
+	}, {
+		"stevearc/dressing.nvim",
+		dependencies = { "nvim-telescope/telescope.nvim" },
+		config = require("pluginconfig.dressing").config,
+	}, {
+		"konradmagnusson/larry",
+	}, {
+		"ggandor/leap.nvim",
+		init = require("pluginconfig.leap").init,
+	}, {
+		"rktjmp/lush.nvim",
+		init = require("pluginconfig.lush").init,
+	}, {
+		"klen/nvim-config-local",
+		opts = require("pluginconfig.nvim-config-local").opts,
+	}, {
+		"rcarriga/nvim-notify",
+		init = require("pluginconfig.nvim-notify").init,
+	}, {
+		"Weissle/persistent-breakpoints.nvim",
+		opts = require("pluginconfig.persistent-breakpoints").opts,
+	}, {
+		"nvim-lua/plenary.nvim",
+	}, {
+		"nvim-telescope/telescope.nvim",
+		tag = "0.1.2",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"FeiyouG/commander.nvim",
+			"rmagatti/auto-session",
+		},
+		config = require("pluginconfig.telescope").config,
+		opts = require("pluginconfig.telescope").opts,
+	}, {
+		"akinsho/toggleterm.nvim",
+		opts = require("pluginconfig.toggleterm").opts,
+	}, {
+		"nvim-treesitter/nvim-treesitter",
+		main = "nvim-treesitter.configs",
+		opts = require("pluginconfig.treesitter").opts,
+		build = ":TSUpdate",
+	}, {
+		"folke/trouble.nvim",
+		opts = require("pluginconfig.trouble").opts,
+	}, {
+		"RRethy/vim-illuminate",
+	}, {
+		"tpope/vim-repeat",
+}})

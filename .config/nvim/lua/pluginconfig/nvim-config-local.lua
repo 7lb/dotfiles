@@ -1,3 +1,7 @@
-require("config-local").setup({
+local M = {}
+
+M.opts = {
 	lookup_parents = true,
-})
+}
+
+return M

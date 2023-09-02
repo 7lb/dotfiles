@@ -1,7 +1,7 @@
 local M = {}
 
 M.init = function()
-	vim.notify = require("notify")
+	require("lush")(require("pluginconfig.nero"))
 end
 
 return M

@@ -1,8 +1,14 @@
-require("telescope").setup({
+local M = {}
+
+M.config = function()
+	local telescope = require("telescope")
+	telescope.load_extension("session-lens")
+end
+
+M.opts = {
 	defaults = {
 		borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
 	},
-})
+}
 
-require("telescope").load_extension("session-lens")
-require("telescope").load_extension("command_center")
+return M

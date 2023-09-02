@@ -33,7 +33,7 @@ nvim_set_keymap("t", "<C-k>", "<Esc><C-k>", {})
 nvim_set_keymap("t", "<C-l>", "<Esc><C-l>", {})
 
 -- telescope
-local cmd_center = "<CMD>Telescope command_center<CR>"
+local cmd_center = "<CMD>Telescope commander<CR>"
 local find_files = "<CMD>Telescope find_files<CR>"
 
 nvim_set_keymap("n", "<A-p>", cmd_center, { noremap = true })
@@ -56,14 +56,15 @@ nvim_set_keymap("n", "<Leader>di", dap_step_into, { noremap = true })
 nvim_set_keymap("n", "<Leader>do", dap_step_out, { noremap = true })
 nvim_set_keymap("n", "<Leader>dr", dap_repl, { noremap = true })
 
-local larry_select = "<CMD>lua require('larry').SelectPreset()<CR>"
-local larry_conf = "<CMD>lua require('larry').Configure()<CR>"
+-- larry
+local larry_select_preset = "<CMD>lua require('larry').SelectPreset()<CR>"
+local larry_configure = "<CMD>lua require('larry').Configure()<CR>"
 local larry_build = "<CMD>lua require('larry').Build()<CR>"
-local larry_toggle_conf_view = "<CMD>lua require('larry').ToggleConfigureView()<CR>"
+local larry_toggle_configure_view = "<CMD>lua require('larry').ToggleConfigureView()<CR>"
 local larry_toggle_build_view = "<CMD>lua require('larry').ToggleBuildView()<CR>"
 
-nvim_set_keymap("n", "<Leader>lp", larry_select, { noremap = true })
-nvim_set_keymap("n", "<Leader>lc", larry_conf, { noremap = true })
-nvim_set_keymap("n", "<Leader>lb", larry_build, { noremap = true })
-nvim_set_keymap("n", "<Leader>lC", larry_toggle_conf_view, { noremap = true })
-nvim_set_keymap("n", "<Leader>lB", larry_toggle_build_view, { noremap = true })
+nvim_set_keymap("n", "<leader>lp", larry_select_preset, { noremap = true })
+nvim_set_keymap("n", "<leader>lc", larry_configure, { noremap = true })
+nvim_set_keymap("n", "<leader>lb", larry_build, { noremap = true })
+nvim_set_keymap("n", "<leader>lC", larry_toggle_configure_view, { noremap = true })
+nvim_set_keymap("n", "<leader>lB", larry_toggle_build_view, { noremap = true })
