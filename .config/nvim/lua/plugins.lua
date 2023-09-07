@@ -37,7 +37,6 @@ require("lazy").setup({{
 		"rcarriga/nvim-dap-ui",
 		dependencies = { "mfussenegger/nvim-dap" },
 		init = require("pluginconfig.dap-ui").init,
-		config = require("pluginconfig.dap-ui").config,
 		opts = require("pluginconfig.dap-ui").opts,
 	}, {
 		"nvim-tree/nvim-web-devicons",

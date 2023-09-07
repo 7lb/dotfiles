@@ -9,10 +9,27 @@ M.config = function()
 					cmp.mapping.abort()
 					vim.cmd("stopinsert")
 			end),
-			["<CR>"] = cmp.mapping.confirm({
-				behavior = cmp.ConfirmBehavior.Replace,
-				select = true,
-			}),
+			["<CR>"] = cmp.mapping(function(fallback)
+				if not cmp.visible() then
+					fallback()
+					return
+				end
+
+				local active = cmp.get_active_entry()
+				if active then
+					cmp.close()
+					return
+				end
+
+				local selected = cmp.get_selected_entry()
+				if selected then
+					cmp.close()
+					return
+				end
+
+				cmp.select_next_item()
+				vim.schedule(function() cmp.close() end)
+			end),
 			["<Tab>"] = cmp.mapping(function(fallback)
 				if cmp.visible() then
 					cmp.select_next_item()

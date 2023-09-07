@@ -14,7 +14,7 @@ vim.o.list = true
 vim.opt.listchars = { tab = "> ", trail = "·" }
 
 -- 80 usable
-vim.o.colorcolumn = "81"
+vim.o.colorcolumn = "81,121"
 
 vim.o.splitright = true
 vim.o.splitbelow = true
