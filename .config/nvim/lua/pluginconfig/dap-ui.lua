@@ -8,6 +8,14 @@ M.init = function()
 	  dapui.open()
 	end
 
+	dap.listeners.before.event_terminated.dapui_config = function()
+	  dapui.close()
+	end
+
+	dap.listeners.before.event_exited.dapui_config = function()
+	  dapui.close()
+	end
+
 	vim.fn.sign_define("DapBreakpoint", {text="•", texthl="DapBreakpoint", numhl="DapBreakpoint", linehl=""})
 	vim.fn.sign_define("DapBreakpointCondition", {text="?", texthl="DapBreakpointCondition", numhl="DapBreakpointCondition", linehl=""})
 	vim.fn.sign_define("DapBreakpointRejected", {text="×", texthl="DapBreakpointRejected", numhl="DapBreakpointRejected", linehl=""})

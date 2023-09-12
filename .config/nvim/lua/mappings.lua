@@ -47,6 +47,9 @@ local dap_step_over = "<CMD>lua require('dap').step_over()<CR>"
 local dap_step_into = "<CMD>lua require('dap').step_into()<CR>"
 local dap_step_out = "<CMD>lua require('dap').step_out()<CR>"
 local dap_repl = "<CMD>lua require('dap').repl.open()<CR>"
+local dap_up = "<CMD>lua require('dap').up()<CR>"
+local dap_down = "<CMD>lua require('dap').down()<CR>"
+local dap_eval = "<CMD>lua require('dapui').eval()<CR>"
 
 nvim_set_keymap("n", "<Leader>db", dap_toggle_breakpoint, { noremap = true })
 nvim_set_keymap("n", "<Leader>dl", dap_set_logpoint, { noremap = true })
@@ -55,6 +58,9 @@ nvim_set_keymap("n", "<Leader>ds", dap_step_over, { noremap = true })
 nvim_set_keymap("n", "<Leader>di", dap_step_into, { noremap = true })
 nvim_set_keymap("n", "<Leader>do", dap_step_out, { noremap = true })
 nvim_set_keymap("n", "<Leader>dr", dap_repl, { noremap = true })
+nvim_set_keymap("n", "<Leader>dj", dap_up, { noremap = true })
+nvim_set_keymap("n", "<Leader>dk", dap_down, { noremap = true })
+nvim_set_keymap("n", "<Leader>de", dap_eval, { noremap = true })
 
 -- larry
 local larry_select_preset = "<CMD>lua require('larry').SelectPreset()<CR>"
