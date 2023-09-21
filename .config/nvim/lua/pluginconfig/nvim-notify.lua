@@ -1,6 +1,6 @@
 local M = {}
 
-M.init = function()
+M.config = function()
 	vim.notify = require("notify")
 end
 

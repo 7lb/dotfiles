@@ -51,13 +51,14 @@ require("lazy").setup({{
 		init = require("pluginconfig.leap").init,
 	}, {
 		"rktjmp/lush.nvim",
-		init = require("pluginconfig.lush").init,
+		config = require("pluginconfig.lush").config,
 	}, {
 		"klen/nvim-config-local",
 		opts = require("pluginconfig.nvim-config-local").opts,
 	}, {
 		"rcarriga/nvim-notify",
-		init = require("pluginconfig.nvim-notify").init,
+		dependencies = { "rktjmp/lush.nvim" },
+		config = require("pluginconfig.nvim-notify").config,
 	}, {
 		"Weissle/persistent-breakpoints.nvim",
 		opts = require("pluginconfig.persistent-breakpoints").opts,

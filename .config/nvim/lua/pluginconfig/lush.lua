@@ -1,6 +1,6 @@
 local M = {}
 
-M.init = function()
+M.config = function()
 	require("lush")(require("pluginconfig.nero"))
 end
 
