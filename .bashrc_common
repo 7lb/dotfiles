@@ -51,7 +51,7 @@ getCurrentGitBranch() {
 ################################################################################
 # Aliases
 ################################################################################
-#
-alias ls="ls --color=auto"
+
+alias ls="eza -al --color=automatic"
 alias grep="grep --color=auto"
 alias cat="bat"

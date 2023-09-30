@@ -73,6 +73,11 @@ local Colors = {
 	GitDeleteFg = Palette.DirtyCrimson,
 	GitDeleteBg = Palette.Blood,
 
+	GitAddHighlightFg = Palette.BoldGreen,
+	GitAddHighlightBg = Palette.DarkForest,
+	GitDeleteHighlightFg = Palette.VisibleRed,
+	GitDeleteHighlightBg = Palette.Blood,
+
 	Directory = Palette.Sky,
 
 	Hardcoded = Palette.VisibleYellow,
@@ -262,6 +267,27 @@ local theme = lush(function(injectable_functions)
 		DapBreakpointRejected			{ fg = DapBreakpoint.fg, gui = DapBreakpoint.gui },
 		DapLogPoint						{ fg = DapBreakpoint.fg, gui = DapBreakpoint.gui },
 		DapStopped						{ fg = DapBreakpoint.fg, gui = DapBreakpoint.gui },
+
+		-- Neogit
+		NeogitUnstagedChanges			{ DiffDelete },
+		NeogitStagedChanges				{ DiffAdd },
+
+		NeogitChangeModified			{ DiffChange },
+		NeogitChangeAdded				{ DiffAdd },
+		NeogitChangeDeleted				{ DiffDelete },
+		NeogitChangeRenamed				{ DiffChange },
+		NeogitChangeUpdated				{ DiffChange },
+		NeogitChangeCopied				{ DiffChange },
+		NeogitChangeBothModified		{ DiffDelete },
+		NeogitChangeNewFile				{ DiffAdd },
+
+		NeogitDiffAdd					{ DiffAdd },
+		NeogitDiffDelete				{ DiffDelete },
+
+		--NeogitDiffAddHighlight			{ fg = Colors.GitAddHighlightFg, bg = Colors.GitAddHighlightBg },
+		--NeogitDiffDeleteHighlight		{ fg = Colors.GitDeleteHighlightFg, bg = Colors.GitDeleteHighlightBg},
+		NeogitDiffAddHighlight			{ DiffAdd },
+		NeogitDiffDeleteHighlight		{ DiffDelete },
 		
 		-- Treesitter
 		sym("@attribute")				{ fg = Colors.LowPrioText },

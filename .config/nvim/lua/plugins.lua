@@ -35,7 +35,10 @@ require("lazy").setup({{
 		dependencies = { "mfussenegger/nvim-dap" },
 	}, {
 		"rcarriga/nvim-dap-ui",
-		dependencies = { "mfussenegger/nvim-dap" },
+		dependencies = {
+			"mfussenegger/nvim-dap",
+			"rktjmp/lush.nvim",
+		},
 		init = require("pluginconfig.dap-ui").init,
 		opts = require("pluginconfig.dap-ui").opts,
 	}, {
@@ -89,4 +92,16 @@ require("lazy").setup({{
 		"RRethy/vim-illuminate",
 	}, {
 		"tpope/vim-repeat",
+	}, {
+		"sindrets/diffview.nvim",
+	}, {
+		"NeogitOrg/neogit",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope.nvim",
+			"sindrets/diffview.nvim",
+			"rktjmp/lush.nvim",
+			--"nvim-lua/plenary.nvim",
+		},
+		config = true,
 }})
