@@ -2,8 +2,7 @@ local M = {}
 
 M.opts = {
 	ensure_installed = {
-		"lua", "vim", "vimdoc", "query",
-		"c", "cpp", "bash"
+		"bash", "c", "cpp", "lua", "query", "vim", "vimdoc", "zig",
 	},
 	sync_install = false,
 
