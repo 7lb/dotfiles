@@ -17,7 +17,6 @@ buildPrompt() {
 	if [[ "$exitCode" != 0 ]]; then
 		prompt+="${redFg}$exitCode${endColor} | "
 	fi
-	
 
 	prompt+="\$(pwd)"
 
@@ -55,3 +54,4 @@ getCurrentGitBranch() {
 alias ls="eza -al --color=auto --group-directories-first"
 alias grep="grep --color=auto"
 alias cat="bat"
+alias s="source ~/.bashrc"
