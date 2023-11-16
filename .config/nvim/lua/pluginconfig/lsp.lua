@@ -24,8 +24,6 @@ local clangd_opts = {
 		debounce_text_changes = 150,
 	},
 
-	capabilities = require("cmp_nvim_lsp").default_capabilities(),
-
 	cmd = {
 		"clangd",
 		"--clang-tidy",
@@ -42,6 +40,9 @@ local zls_opts = {}
 
 M.config = function()
 	local lspconfig = require("lspconfig")
+
+	clangd_opts.capabilities = require("cmp_nvim_lsp").default_capabilities()
+	zls_opts.capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 	lspconfig.clangd.setup(clangd_opts)
 	lspconfig.zls.setup(zls_opts)

@@ -22,6 +22,7 @@ require("lazy").setup({{
 		config = require("pluginconfig.cmp").config,
 	}, {
 		"neovim/nvim-lspconfig",
+		dependencies = { "hrsh7th/cmp-nvim-lsp" },
 		config = require("pluginconfig.lsp").config,
 	}, {
 		"FeiyouG/commander.nvim",
