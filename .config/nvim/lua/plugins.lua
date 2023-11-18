@@ -18,7 +18,6 @@ require("lazy").setup({{
 		"hrsh7th/cmp-nvim-lsp",
 	}, {
 		"hrsh7th/nvim-cmp",
-		dependencies = { "hrsh7th/cmp-nvim-lsp" },
 		config = require("pluginconfig.cmp").config,
 	}, {
 		"neovim/nvim-lspconfig",
@@ -83,6 +82,7 @@ require("lazy").setup({{
 		opts = require("pluginconfig.toggleterm").opts,
 	}, {
 		"nvim-treesitter/nvim-treesitter",
+		dependencies = { "nvim-lspconfig" },
 		main = "nvim-treesitter.configs",
 		opts = require("pluginconfig.treesitter").opts,
 		build = ":TSUpdate",
