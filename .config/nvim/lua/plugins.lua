@@ -57,6 +57,7 @@ require("lazy").setup({{
 		config = require("pluginconfig.lush").config,
 	}, {
 		"klen/nvim-config-local",
+		dependencies = { "rcarriga/nvim-notify" },
 		opts = require("pluginconfig.nvim-config-local").opts,
 	}, {
 		"rcarriga/nvim-notify",
@@ -102,7 +103,6 @@ require("lazy").setup({{
 			"nvim-telescope/telescope.nvim",
 			"sindrets/diffview.nvim",
 			"rktjmp/lush.nvim",
-			--"nvim-lua/plenary.nvim",
 		},
 		config = true,
 }})
