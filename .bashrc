@@ -11,3 +11,4 @@ source ~/.config/broot/launcher/bash/br
 source /usr/share/bash-completion/completions/git
 
 PROMPT_COMMAND=buildPrompt
+EDITOR=nvim
