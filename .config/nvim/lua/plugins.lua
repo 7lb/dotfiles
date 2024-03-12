@@ -54,7 +54,10 @@ require("lazy").setup({{
 		init = require("pluginconfig.leap").init,
 	}, {
 		"rktjmp/lush.nvim",
-		config = require("pluginconfig.lush").config,
+		--config = require("pluginconfig.lush").config,
+	}, {
+		"ramojus/mellifluous.nvim",
+		config = require("pluginconfig.mellifluous").config,
 	}, {
 		"klen/nvim-config-local",
 		dependencies = { "rcarriga/nvim-notify" },
@@ -105,4 +108,11 @@ require("lazy").setup({{
 			"rktjmp/lush.nvim",
 		},
 		config = true,
+	}, {
+		"lewis6991/gitsigns.nvim",
+		opts = require("pluginconfig.gitsigns").opts,
+	}, {
+		"anuvyklack/windows.nvim",
+		dependencies = { "anuvyklack/middleclass" },
+		opts = require("pluginconfig.windows").opts,
 }})
