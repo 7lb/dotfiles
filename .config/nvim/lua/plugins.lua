@@ -115,4 +115,10 @@ require("lazy").setup({{
 		"anuvyklack/windows.nvim",
 		dependencies = { "anuvyklack/middleclass" },
 		opts = require("pluginconfig.windows").opts,
+	}, {
+		'glacambre/firenvim',
+		lazy = not vim.g.started_by_firenvim,
+		build = function()
+			vim.fn["firenvim#install"](0)
+		end
 }})

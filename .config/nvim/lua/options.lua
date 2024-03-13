@@ -30,3 +30,16 @@ vim.o.hidden = true
 
 vim.go.autoread = true
 vim.opt.ignorecase = true
+
+vim.g.firenvim_config = {
+	globalSettings = { alt = "all" },
+	localSettings = {
+		[".*"] = {
+			cmdline  = "neovim",
+			content  = "text",
+			priority = 0,
+			selector = "textarea",
+			takeover = "never"
+		}
+	}
+}
