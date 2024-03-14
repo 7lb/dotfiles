@@ -117,8 +117,4 @@ require("lazy").setup({{
 		build = function()
 			vim.fn["firenvim#install"](0)
 		end
-	}, {
-		"shortcuts/no-neck-pain.nvim",
-		version = "*", -- any stable
-		opts = require("pluginconfig.no-neck-pain").opts,
 }})
