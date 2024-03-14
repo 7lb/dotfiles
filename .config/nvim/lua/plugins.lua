@@ -112,13 +112,13 @@ require("lazy").setup({{
 		"lewis6991/gitsigns.nvim",
 		opts = require("pluginconfig.gitsigns").opts,
 	}, {
-		"anuvyklack/windows.nvim",
-		dependencies = { "anuvyklack/middleclass" },
-		opts = require("pluginconfig.windows").opts,
-	}, {
 		'glacambre/firenvim',
 		lazy = not vim.g.started_by_firenvim,
 		build = function()
 			vim.fn["firenvim#install"](0)
 		end
+	}, {
+		"shortcuts/no-neck-pain.nvim",
+		version = "*", -- any stable
+		opts = require("pluginconfig.no-neck-pain").opts,
 }})

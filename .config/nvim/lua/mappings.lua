@@ -76,3 +76,7 @@ nvim_set_keymap("n", "<Leader>lc", larry_configure, { noremap = true })
 nvim_set_keymap("n", "<Leader>lb", larry_build, { noremap = true })
 nvim_set_keymap("n", "<Leader>lC", larry_toggle_configure_view, { noremap = true })
 nvim_set_keymap("n", "<Leader>lB", larry_toggle_build_view, { noremap = true })
+
+-- no neck pain
+local no_neck_pain = "<CMD>NoNeckPain <CR>"
+nvim_set_keymap("n", "<Leader>np", no_neck_pain, { noremap = true })
