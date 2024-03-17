@@ -32,6 +32,10 @@ nvim_set_keymap("t", "<C-j>", "<Esc><C-j>", {})
 nvim_set_keymap("t", "<C-k>", "<Esc><C-k>", {})
 nvim_set_keymap("t", "<C-l>", "<Esc><C-l>", {})
 
+-- code navigation: show diagnostics in a float
+local open_float = "<CMD>lua vim.diagnostic.open_float()<CR>"
+nvim_set_keymap("n", "gf", open_float, { noremap = true })
+
 -- telescope
 local cmd_center = "<CMD>Telescope commander<CR>"
 local find_files = "<CMD>Telescope find_files<CR>"
@@ -76,7 +80,3 @@ nvim_set_keymap("n", "<Leader>lc", larry_configure, { noremap = true })
 nvim_set_keymap("n", "<Leader>lb", larry_build, { noremap = true })
 nvim_set_keymap("n", "<Leader>lC", larry_toggle_configure_view, { noremap = true })
 nvim_set_keymap("n", "<Leader>lB", larry_toggle_build_view, { noremap = true })
-
--- no neck pain
-local no_neck_pain = "<CMD>NoNeckPain <CR>"
-nvim_set_keymap("n", "<Leader>np", no_neck_pain, { noremap = true })
