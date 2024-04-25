@@ -36,8 +36,10 @@ require("lazy").setup({{
 	}, {
 		"rcarriga/nvim-dap-ui",
 		dependencies = {
+			"nvim-neotest/nvim-nio",
 			"mfussenegger/nvim-dap",
 			"rktjmp/lush.nvim",
+			"ramojus/mellifluous.nvim",
 		},
 		init = require("pluginconfig.dap-ui").init,
 		opts = require("pluginconfig.dap-ui").opts,
@@ -64,7 +66,10 @@ require("lazy").setup({{
 		opts = require("pluginconfig.nvim-config-local").opts,
 	}, {
 		"rcarriga/nvim-notify",
-		dependencies = { "rktjmp/lush.nvim" },
+		dependencies = {
+			"rktjmp/lush.nvim",
+			"ramojus/mellifluous.nvim",
+		},
 		config = require("pluginconfig.nvim-notify").config,
 	}, {
 		"Weissle/persistent-breakpoints.nvim",
@@ -106,6 +111,7 @@ require("lazy").setup({{
 			"nvim-telescope/telescope.nvim",
 			"sindrets/diffview.nvim",
 			"rktjmp/lush.nvim",
+			"ramojus/mellifluous.nvim",
 		},
 		config = true,
 	}, {
