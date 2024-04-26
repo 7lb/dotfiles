@@ -39,7 +39,7 @@ require("lazy").setup({{
 			"nvim-neotest/nvim-nio",
 			"mfussenegger/nvim-dap",
 			"rktjmp/lush.nvim",
-			"ramojus/mellifluous.nvim",
+			"mcchrish/zenbones.nvim",
 		},
 		init = require("pluginconfig.dap-ui").init,
 		opts = require("pluginconfig.dap-ui").opts,
@@ -58,8 +58,8 @@ require("lazy").setup({{
 		"rktjmp/lush.nvim",
 		--config = require("pluginconfig.lush").config,
 	}, {
-		"ramojus/mellifluous.nvim",
-		config = require("pluginconfig.mellifluous").config,
+		"mcchrish/zenbones.nvim",
+		config = require("pluginconfig.zenbones").config,
 	}, {
 		"klen/nvim-config-local",
 		dependencies = { "rcarriga/nvim-notify" },
@@ -68,7 +68,7 @@ require("lazy").setup({{
 		"rcarriga/nvim-notify",
 		dependencies = {
 			"rktjmp/lush.nvim",
-			"ramojus/mellifluous.nvim",
+			"mcchrish/zenbones.nvim",
 		},
 		config = require("pluginconfig.nvim-notify").config,
 	}, {
@@ -111,7 +111,7 @@ require("lazy").setup({{
 			"nvim-telescope/telescope.nvim",
 			"sindrets/diffview.nvim",
 			"rktjmp/lush.nvim",
-			"ramojus/mellifluous.nvim",
+			"mcchrish/zenbones.nvim",
 		},
 		config = true,
 	}, {
