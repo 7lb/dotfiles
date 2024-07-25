@@ -78,11 +78,12 @@ require("lazy").setup({{
 		"nvim-lua/plenary.nvim",
 	}, {
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.2",
+		branch = "0.1.x",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"FeiyouG/commander.nvim",
 			"rmagatti/auto-session",
+			"nvim-telescope/telescope-fzf-native.nvim",
 		},
 		config = require("pluginconfig.telescope").config,
 		opts = require("pluginconfig.telescope").opts,
@@ -123,4 +124,7 @@ require("lazy").setup({{
 		build = function()
 			vim.fn["firenvim#install"](0)
 		end
+	}, {
+		"nvim-telescope/telescope-fzf-native.nvim",
+		build = "make",
 }})

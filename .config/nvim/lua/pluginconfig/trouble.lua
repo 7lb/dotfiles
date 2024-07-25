@@ -1,8 +1,10 @@
 local M = {}
 
 M.opts = {
-	position = "right",
-	width = 80,
+	win = {
+		position = "right",
+		size = 80,
+	}
 }
 
 return M

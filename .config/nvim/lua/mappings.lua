@@ -65,7 +65,7 @@ nvim_set_keymap("n", "<Leader>dj", dap_up, { noremap = true })
 nvim_set_keymap("n", "<Leader>dk", dap_down, { noremap = true })
 
 -- trouble
-local trouble_toggle = "<CMD>lua require('trouble').toggle()<CR>"
+local trouble_toggle = "<CMD>Trouble diagnostics toggle<CR>"
 nvim_set_keymap("n", "<Leader>tt", trouble_toggle, { noremap = true })
 
 -- larry
