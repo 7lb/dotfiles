@@ -21,7 +21,7 @@ vim.api.nvim_create_autocmd("fileType", {
 --	pattern = "qf",
 --	command = "nnoremap <buffer> <CR> <CR>:cclose<CR>",
 --})
---
+
 -- enter insert mode when switching to a terminal window
 vim.api.nvim_create_autocmd({ "BufWinEnter", "WinEnter" }, {
 	group = buffer_group,
@@ -29,7 +29,18 @@ vim.api.nvim_create_autocmd({ "BufWinEnter", "WinEnter" }, {
 	command = "startinsert",
 })
 
-vim.api.nvim_create_autocmd({"UIEnter"}, {
+-- format C or C++ files with clang-format on save
+-- Note: suffix list taken from the gcc online manual
+vim.api.nvim_create_autocmd("BufWritePost", {
+	pattern = {
+		"*.c", "*.cc", "*.cp", "*.cxx", "*.cpp", "*.CPP", "*.c++", "*.C",
+		"*.h", "*.hh", "*.hp", "*.hxx", "*.hpp", "*.HPP", "*.h++", "*.H",
+	},
+
+	command = "silent !clang-format -i %:p",
+})
+
+vim.api.nvim_create_autocmd({ "UIEnter" }, {
 	callback = function(event)
 		local client = vim.api.nvim_get_chan_info(vim.v.event.chan).client
 		if client ~= nil and client.name == "Firenvim" then
