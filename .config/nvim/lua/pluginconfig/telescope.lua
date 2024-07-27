@@ -16,6 +16,7 @@ M.opts = {
 		find_files = {
 			find_command = {
 				"fd",
+				"--hidden",
 				"--type", "f",
 				"--strip-cwd-prefix",
 
