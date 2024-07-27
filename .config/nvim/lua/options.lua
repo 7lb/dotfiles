@@ -13,7 +13,7 @@ vim.o.expandtab = false
 vim.o.list = true
 vim.opt.listchars = { tab = "> ", trail = "·" }
 
--- 80 usable
+-- 80, 120 usable
 vim.o.colorcolumn = "81,121"
 
 vim.o.splitright = true
@@ -30,6 +30,19 @@ vim.o.hidden = true
 
 vim.go.autoread = true
 vim.opt.ignorecase = true
+
+vim.opt.sessionoptions = {
+	"blank",
+	"curdir",
+	"folds",
+	"globals",
+	"help",
+	"options",
+	"resize",
+	"tabpages",
+	"winpos",
+	"winsize",
+}
 
 vim.g.firenvim_config = {
 	globalSettings = { alt = "all" },

@@ -40,12 +40,15 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 	command = "silent !clang-format -i %:p",
 })
 
--- load session associated with cwd when starting nvim without a file
+-- load session associated with cwd when starting nvim without a file,
+-- but do not save a session when nvim is invoked with files
 vim.api.nvim_create_autocmd({ "VimEnter" }, {
 	callback = function(event)
 		local bufName = vim.api.nvim_buf_get_name(0)
 		if bufName == nil or bufName == "" then
 			require("persistence").load()
+		else
+			require("persistence").stop()
 		end
 	end
 })
