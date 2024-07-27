@@ -40,6 +40,16 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 	command = "silent !clang-format -i %:p",
 })
 
+-- load session associated with cwd when starting nvim without a file
+vim.api.nvim_create_autocmd({ "VimEnter" }, {
+	callback = function(event)
+		local bufName = vim.api.nvim_buf_get_name(0)
+		if bufName == nil or bufName == "" then
+			require("persistence").load()
+		end
+	end
+})
+
 vim.api.nvim_create_autocmd({ "UIEnter" }, {
 	callback = function(event)
 		local client = vim.api.nvim_get_chan_info(vim.v.event.chan).client

@@ -12,8 +12,9 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({{
-		"rmagatti/auto-session",
-		opts = require("pluginconfig.auto-session").opts,
+		"folke/persistence.nvim",
+		event = "BufReadPre",
+		config = true,
 	}, {
 		"hrsh7th/cmp-nvim-lsp",
 	}, {
