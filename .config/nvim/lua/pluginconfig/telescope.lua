@@ -3,7 +3,6 @@ local M = {}
 M.config = function(plugin, opts)
 	local telescope = require("telescope")
 	telescope.load_extension("fzf")
-	telescope.load_extension("session-lens")
 	telescope.setup(opts)
 end
 
