@@ -52,9 +52,6 @@ require("lazy").setup({{
 		"ggandor/leap.nvim",
 		init = require("pluginconfig.leap").init,
 	}, {
-		"rktjmp/lush.nvim",
-		--config = require("pluginconfig.lush").config,
-	}, {
 		"mcchrish/zenbones.nvim",
 		config = require("pluginconfig.zenbones").config,
 	}, {
