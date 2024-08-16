@@ -69,8 +69,6 @@ require("lazy").setup({{
 		"Weissle/persistent-breakpoints.nvim",
 		opts = require("pluginconfig.persistent-breakpoints").opts,
 	}, {
-		"nvim-lua/plenary.nvim",
-	}, {
 		"nvim-telescope/telescope.nvim",
 		branch = "0.1.x",
 		dependencies = {
