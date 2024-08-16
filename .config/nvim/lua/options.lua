@@ -38,9 +38,7 @@ vim.opt.sessionoptions = {
 	"globals",
 	"help",
 	"options",
-	"resize",
 	"tabpages",
-	"winpos",
 	"winsize",
 }
 
