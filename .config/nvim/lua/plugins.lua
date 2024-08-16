@@ -46,8 +46,6 @@ require("lazy").setup({{
 		"stevearc/dressing.nvim",
 		dependencies = { "nvim-telescope/telescope.nvim" },
 		config = require("pluginconfig.dressing").config,
-	--}, {
-	--	"konradmagnusson/larry",
 	}, {
 		"ggandor/leap.nvim",
 		init = require("pluginconfig.leap").init,
@@ -113,14 +111,6 @@ require("lazy").setup({{
 		'glacambre/firenvim',
 		lazy = not vim.g.started_by_firenvim,
 		build = ":call firenvim#install(0)",
-	}, {
-		dir = "/home/proj/nvim-cwscript",
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter"
-		},
-		opts = {
-			ts_parser_path = "/home/proj/tree-sitter-cwscript"
-		}
 	}, {
 		"nvim-telescope/telescope-fzf-native.nvim",
 		build = "make",
