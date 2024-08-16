@@ -114,4 +114,8 @@ require("lazy").setup({{
 	}, {
 		"nvim-telescope/telescope-fzf-native.nvim",
 		build = "make",
+	}, {
+		"Shatur/neovim-session-manager",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		config = require("pluginconfig.neovim-session-manager").config,
 }})
