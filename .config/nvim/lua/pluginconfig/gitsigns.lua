@@ -1,4 +1,4 @@
-local M = {}
+local M = { "lewis6991/gitsigns.nvim" }
 
 M.opts = {
 	current_line_blame = true,

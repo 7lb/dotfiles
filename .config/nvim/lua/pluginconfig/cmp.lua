@@ -1,4 +1,4 @@
-local M = {}
+local M = { "hrsh7th/nvim-cmp" }
 
 M.config = function()
 	local cmp = require("cmp")

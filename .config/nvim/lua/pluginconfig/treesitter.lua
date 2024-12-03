@@ -1,4 +1,8 @@
-local M = {}
+local M = { "nvim-treesitter/nvim-treesitter" }
+
+M.dependencies = { "nvim-lspconfig" }
+
+M.main = "nvim-treesitter.configs"
 
 M.opts = {
 	ensure_installed = {
@@ -12,5 +16,7 @@ M.opts = {
 		updatetime = 25,
 	},
 }
+
+M.build = ":TSUpdate"
 
 return M

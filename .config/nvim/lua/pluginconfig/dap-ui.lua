@@ -1,4 +1,11 @@
-local M = {}
+local M = { "rcarriga/nvim-dap-ui" }
+
+M.dependencies = {
+	"nvim-neotest/nvim-nio",
+	"mfussenegger/nvim-dap",
+	"rktjmp/lush.nvim",
+	"mcchrish/zenbones.nvim",
+}
 
 M.init = function()
 	local dap = require("dap")

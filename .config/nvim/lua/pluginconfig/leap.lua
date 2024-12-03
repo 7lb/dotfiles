@@ -1,4 +1,4 @@
-local M = {}
+local M = { "ggandor/leap.nvim" }
 
 M.init = function()
 	local leap = require("leap")

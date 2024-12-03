@@ -1,4 +1,6 @@
-local M = {}
+local M = { "stevearc/dressing.nvim" }
+
+M.dependencies = { "nvim-telescope/telescope.nvim" }
 
 M.config = function()
 	require("dressing").setup({

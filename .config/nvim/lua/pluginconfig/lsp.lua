@@ -1,4 +1,6 @@
-local M = {}
+local M = { "neovim/nvim-lspconfig" }
+
+M.dependencies = { "hrsh7th/cmp-nvim-lsp" }
 
 local attach_common_opts = function(client, bufnr)
 		vim.opt.cmdheight = 2

@@ -1,4 +1,4 @@
-local M = {}
+local M = { "FeiyouG/commander.nvim" }
 
 M.init = function()
 	local cmdc = require("commander")

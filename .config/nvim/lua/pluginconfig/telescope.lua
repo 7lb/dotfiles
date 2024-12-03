@@ -1,4 +1,12 @@
-local M = {}
+local M = { "nvim-telescope/telescope.nvim" }
+
+Mdependencies = {
+	"nvim-lua/plenary.nvim",
+	"FeiyouG/commander.nvim",
+	"nvim-telescope/telescope-fzf-native.nvim",
+}
+
+M.branch = "0.1.x"
 
 M.config = function(plugin, opts)
 	local telescope = require("telescope")

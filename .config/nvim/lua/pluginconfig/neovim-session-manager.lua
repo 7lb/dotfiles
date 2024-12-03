@@ -1,4 +1,6 @@
-local M = {}
+local M = { "Shatur/neovim-session-manager" }
+
+M.dependencies = { "nvim-lua/plenary.nvim" }
 
 M.config = function(plugin, opts)
 	local config = require("session_manager.config")
