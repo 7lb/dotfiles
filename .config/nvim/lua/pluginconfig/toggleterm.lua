@@ -1,4 +1,4 @@
-local M = {}
+local M = { "akinsho/toggleterm.nvim" }
 
 M.opts = {
 	open_mapping = "<C-t>",
