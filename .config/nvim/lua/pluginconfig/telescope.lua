@@ -12,6 +12,12 @@ M.config = function(plugin, opts)
 	local telescope = require("telescope")
 	telescope.load_extension("fzf")
 	telescope.setup(opts)
+
+	local cmd_center = "<CMD>Telescope commander<CR>"
+	local find_files = "<CMD>Telescope find_files<CR>"
+
+	vim.api.nvim_set_keymap("n", "<A-p>", cmd_center, { noremap = true })
+	vim.api.nvim_set_keymap("n", "<C-p>", find_files, { noremap = true })
 end
 
 M.opts = {
