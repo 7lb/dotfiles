@@ -12,3 +12,5 @@ source /usr/share/bash-completion/completions/git
 
 PROMPT_COMMAND=buildPrompt
 EDITOR=nvim
+
+PATH=$PATH:~/bin

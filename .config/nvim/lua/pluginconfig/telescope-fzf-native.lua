@@ -1,5 +1,3 @@
-local M = { "nvim-telescope/telescope-fzf-native.nvim" }
-
-M.build = "make"
+local M = { "nvim-telescope/telescope-fzf-native.nvim", build = "make" }
 
 return M

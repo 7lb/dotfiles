@@ -10,6 +10,7 @@ buildPrompt() {
 	local endColor="\[\e[0m\]"
 	local redFg="\[\e[31m\]"
 	local greenFg="\[\e[32m\]"
+	local purpleFg="\[\e[35m\]"
 	local yellowFg="\[\e[33m\]"
 
 	local prompt="┌ "
@@ -19,6 +20,10 @@ buildPrompt() {
 	fi
 
 	prompt+="\$(pwd)"
+
+	if [[ "$(isInToolbox)" == 1 ]]; then
+		prompt+=" | ${purpleFg}$(getCurrentToolboxName)${endColor}"
+	fi
 
 	if [[ "$(pwdIsGitRepo)" == 1 ]]; then
 		prompt+=" | ${yellowFg}$(getCurrentGitBranch)${endColor}"
@@ -34,6 +39,14 @@ buildPrompt() {
 	PS1="$prompt"
 }
 
+isInToolbox() {
+	if [[ "$HOSTNAME" != "toolbx" ]]; then
+		echo 0
+	else
+		echo 1
+	fi
+}
+
 pwdIsGitRepo() {
 	local gitDir="$(git rev-parse --git-dir 2> /dev/null)"
 	if [[ "$gitDir" == "" ]]; then
@@ -41,6 +54,10 @@ pwdIsGitRepo() {
 	else
 		echo 1
 	fi
+}
+
+getCurrentToolboxName() {
+	cat /run/.containerenv | grep name | cut -d= -f2 | cut -d\" -f2
 }
 
 getCurrentGitBranch() {
