@@ -1,36 +1,24 @@
-local nvim_set_keymap = vim.api.nvim_set_keymap
-
 vim.g.mapleader = ","
 
 -- easier split navigation
-nvim_set_keymap("", "<C-h>", "<C-w>h", { noremap = true })
-nvim_set_keymap("", "<C-j>", "<C-w>j", { noremap = true })
-nvim_set_keymap("", "<C-k>", "<C-w>k", { noremap = true })
-nvim_set_keymap("", "<C-l>", "<C-w>l", { noremap = true })
-
--- tabs
-nvim_set_keymap("n", "ta", ":tabnew<CR>", { noremap = true })
-nvim_set_keymap("n", "ti", ":-tabnew<CR>", { noremap = true })
-nvim_set_keymap("n", "tA", ":$tabnew<CR>", { noremap = true })
-nvim_set_keymap("n", "tI", ":0tabnew<CR>", { noremap = true })
-nvim_set_keymap("n", "tx", ":tabclose<CR>", { noremap = true })
-nvim_set_keymap("n", "tX", ":tabonly<CR>", { noremap = true })
-nvim_set_keymap("n", "tn", ":tabnext<CR>", { noremap = true })
-nvim_set_keymap("n", "tN", ":tabprevious<CR>", { noremap = true })
+vim.keymap.set("", "<C-h>", "<C-w>h")
+vim.keymap.set("", "<C-j>", "<C-w>j")
+vim.keymap.set("", "<C-k>", "<C-w>k")
+vim.keymap.set("", "<C-l>", "<C-w>l")
 
 -- easier copy paste
-nvim_set_keymap("n", "<Leader>y", "\"+y", { noremap = true })
-nvim_set_keymap("n", "<Leader>p", "\"+p", { noremap = true })
+vim.keymap.set("n", "<Leader>y", "\"+y")
+vim.keymap.set("n", "<Leader>p", "\"+p")
 
 -- easy escape from terminal windows
-nvim_set_keymap("t", "<Esc>", "<C-\\><C-n>", { noremap = true })
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
 
 -- auto-escape when moving away from a terminal window
 -- recursive maps so they map to the remapped <Esc> and <C-*> shortcuts
-nvim_set_keymap("t", "<C-h>", "<Esc><C-h>", {})
-nvim_set_keymap("t", "<C-j>", "<Esc><C-j>", {})
-nvim_set_keymap("t", "<C-k>", "<Esc><C-k>", {})
-nvim_set_keymap("t", "<C-l>", "<Esc><C-l>", {})
+vim.keymap.set("t", "<C-h>", "<Esc><C-h>", { remap = true })
+vim.keymap.set("t", "<C-j>", "<Esc><C-j>", { remap = true })
+vim.keymap.set("t", "<C-k>", "<Esc><C-k>", { remap = true })
+vim.keymap.set("t", "<C-l>", "<Esc><C-l>", { remap = true })
 
 vim.keymap.set("n", "<leader>jj", ":try | cnext | catch | cfirst | catch | endtry<cr>")
 vim.keymap.set("n", "<leader>kk", ":try | cprev | catch | clast | catch | endtry<cr>")
