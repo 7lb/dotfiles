@@ -4,3 +4,4 @@ require("mappings")
 require("autocmds")
 
 require("lsp")
+require("cmp")

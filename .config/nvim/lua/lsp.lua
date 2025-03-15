@@ -28,17 +28,6 @@ vim.lsp.config("zls", {
 	filetypes = { "zig" },
 })
 
-local function pum_remap(lhs, rhs)
-	return vim.fn.pumvisible() == 1 and lhs or rhs
-end
-
-local pum_funcs = {
-	["<tab>"] = function() return pum_remap("<C-n>", "<tab>") end,
-	["<S-tab>"] = function() return pum_remap("<C-p>", "<S-tab>") end,
-	["<esc>"] = function() return pum_remap("<C-e>", "<esc>") end,
-	["<cr>"] = function() return pum_remap("<C-y>", "<cr>") end,
-}
-
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(args)
 		vim.opt.shortmess = vim.opt.shortmess + "c"
@@ -57,11 +46,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		vim.keymap.set("n", "gs", vim.lsp.buf.document_symbol, { buffer = args.buf })
 		vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, { buffer = args.buf })
 		vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, { buffer = args.buf })
-		vim.keymap.set("i", "<C-space>", "<C-x><C-o>", { buffer = args.buf })
-		vim.keymap.set("i", "<tab>", pum_funcs["<tab>"], { buffer = args.buf, expr = true })
-		vim.keymap.set("i", "<S-tab>", pum_funcs["<S-tab>"], { buffer = args.buf, expr = true })
-		vim.keymap.set("i", "<esc>", pum_funcs["<esc>"], { buffer = args.buf, expr = true })
-		vim.keymap.set("i", "<cr>", pum_funcs["<cr>"], { buffer = args.buf, expr = true })
 
 		vim.lsp.completion.enable(true, args.data.client_id, args.buf, { autotrigger = false })
 
