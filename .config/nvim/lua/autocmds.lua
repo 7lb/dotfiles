@@ -30,25 +30,13 @@ vim.api.nvim_create_autocmd({ "BufWinEnter", "WinEnter" }, {
 	command = "startinsert",
 })
 
--- format C or C++ files with clang-format on save
--- Note: suffix list taken from the gcc online manual
-vim.api.nvim_create_autocmd("BufWritePost", {
-	group = clangFormat,
-	pattern = {
-		"*.c", "*.cc", "*.cp", "*.cxx", "*.cpp", "*.CPP", "*.c++", "*.C",
-		"*.h", "*.hh", "*.hp", "*.hxx", "*.hpp", "*.HPP", "*.h++", "*.H",
-	},
-
-	command = "silent !clang-format -i %:p",
-})
-
-vim.api.nvim_create_autocmd({ "UIEnter" }, {
-	callback = function(event)
-		local client = vim.api.nvim_get_chan_info(vim.v.event.chan).client
-		if client ~= nil and client.name == "Firenvim" then
-			vim.o.laststatus = 0
-			vim.o.lines = 30
-			vim.o.columns = 80
-		end
-	end
-})
+--vim.api.nvim_create_autocmd({ "UIEnter" }, {
+--	callback = function(event)
+--		local client = vim.api.nvim_get_chan_info(vim.v.event.chan).client
+--		if client ~= nil and client.name == "Firenvim" then
+--			vim.o.laststatus = 0
+--			vim.o.lines = 30
+--			vim.o.columns = 80
+--		end
+--	end
+--})

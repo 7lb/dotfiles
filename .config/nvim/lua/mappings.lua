@@ -32,6 +32,8 @@ nvim_set_keymap("t", "<C-j>", "<Esc><C-j>", {})
 nvim_set_keymap("t", "<C-k>", "<Esc><C-k>", {})
 nvim_set_keymap("t", "<C-l>", "<Esc><C-l>", {})
 
--- code navigation: show diagnostics in a float
-local open_float = "<CMD>lua vim.diagnostic.open_float()<CR>"
-nvim_set_keymap("n", "gf", open_float, { noremap = true })
+vim.keymap.set("n", "<leader>jj", ":try | cnext | catch | cfirst | catch | endtry<cr>")
+vim.keymap.set("n", "<leader>kk", ":try | cprev | catch | clast | catch | endtry<cr>")
+vim.keymap.set("n", "<leader>cc", ":cexpr [] | cclose<cr>")
+vim.keymap.set("n", "<leader>jd", vim.diagnostic.goto_next)
+vim.keymap.set("n", "<leader>kd", vim.diagnostic.goto_prev)
