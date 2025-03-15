@@ -19,8 +19,10 @@ vim.o.colorcolumn = "81,121"
 vim.o.splitright = true
 vim.o.splitbelow = true
 
-vim.o.foldmethod = "indent"
+vim.o.foldenable = true
 vim.o.foldlevel = 99
+vim.o.foldmethod = "expr"
+vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 
 vim.o.number = true
 vim.o.relativenumber = false
