@@ -15,6 +15,7 @@ vim.opt.listchars = { tab = "> ", trail = "·" }
 
 -- 80, 120 usable
 vim.o.colorcolumn = "81,121"
+vim.o.signcolumn = "yes"
 
 vim.o.splitright = true
 vim.o.splitbelow = true
@@ -31,7 +32,18 @@ vim.o.cursorline = true
 vim.o.hidden = true
 
 vim.go.autoread = true
-vim.opt.ignorecase = true
+vim.o.ignorecase = true
+
+vim.o.undofile = true
+vim.opt.shortmess = vim.opt.shortmess + "c"
+
+vim.o.pumheight = 15
+vim.opt.completeopt = {
+	"menu",
+	"menuone",
+	"popup",
+	"fuzzy",
+}
 
 vim.opt.sessionoptions = {
 	"blank",

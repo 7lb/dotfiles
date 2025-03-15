@@ -30,10 +30,6 @@ vim.lsp.config("zls", {
 
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(args)
-		vim.opt.shortmess = vim.opt.shortmess + "c"
-		vim.opt.signcolumn = "yes"
-		vim.opt.completeopt = "fuzzy,popup,menu,menuone,noinsert"
-
 		vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
 
 		vim.keymap.del("n", "K", { buffer = args.buf })
