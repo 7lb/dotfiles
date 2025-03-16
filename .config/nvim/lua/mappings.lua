@@ -1,5 +1,8 @@
 vim.g.mapleader = ","
 
+-- delete default keybinds that conflict wit custom
+vim.keymap.del("n", "gcc"); -- comment line
+
 -- easier split navigation
 vim.keymap.set("", "<C-h>", "<C-w>h")
 vim.keymap.set("", "<C-j>", "<C-w>j")
@@ -20,8 +23,14 @@ vim.keymap.set("t", "<C-j>", "<Esc><C-j>", { remap = true })
 vim.keymap.set("t", "<C-k>", "<Esc><C-k>", { remap = true })
 vim.keymap.set("t", "<C-l>", "<Esc><C-l>", { remap = true })
 
-vim.keymap.set("n", "<leader>jj", ":try | cnext | catch | cfirst | catch | endtry<cr>")
-vim.keymap.set("n", "<leader>kk", ":try | cprev | catch | clast | catch | endtry<cr>")
-vim.keymap.set("n", "<leader>cc", ":cexpr [] | cclose<cr>")
-vim.keymap.set("n", "<leader>jd", vim.diagnostic.goto_next)
-vim.keymap.set("n", "<leader>kd", vim.diagnostic.goto_prev)
+-- quickfix window
+vim.keymap.set("n", "gf", ":try | cnext | catch | cfirst | catch | endtry<cr>")
+vim.keymap.set("n", "gF", ":try | cprev | catch | clast | catch | endtry<cr>")
+vim.keymap.set("n", "<leader>fo", ":copen<cr>")
+vim.keymap.set("n", "<leader>fc", ":cclose<cr>")
+vim.keymap.set("n", "<leader>fx", ":cexpr [] | cclose<cr>")
+
+-- diagnostics
+vim.keymap.set("n", "ge", vim.diagnostic.goto_next)
+vim.keymap.set("n", "gE", vim.diagnostic.goto_prev)
+vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)

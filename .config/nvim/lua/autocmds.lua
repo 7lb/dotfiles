@@ -16,13 +16,6 @@ vim.api.nvim_create_autocmd("fileType", {
 	command = "setlocal ts=2 sts=2 sw=2 expandtab",
 })
 
--- automatically close quickfix window and location lists when selecting entry
---vim.api.nvim_create_autocmd("fileType", {
---	group = fileType,
---	pattern = "qf",
---	command = "nnoremap <buffer> <CR> <CR>:cclose<CR>",
---})
-
 -- enter insert mode when switching to a terminal window
 vim.api.nvim_create_autocmd({ "BufWinEnter", "WinEnter" }, {
 	group = buffer,
