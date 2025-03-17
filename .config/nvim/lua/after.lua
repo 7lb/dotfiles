@@ -1,12 +1,15 @@
--- fzf-lua
+-- colorscheme
+vim.cmd("colorscheme kanagawa-paper")
+
+-- fzf-lua mappings
 vim.keymap.set("n", "<C-x>", ":FzfLua builtin<cr>")
 vim.keymap.set("n", "<C-p>", ":FzfLua files<cr>")
 
--- leap
+-- leap mappings
 vim.keymap.set("n", "s", "<plug>(leap)")
 vim.keymap.set("n", "gs", "<plug>(leap-from-window)")
 
--- dap
+-- dap mappings
 vim.keymap.set("n", "<leader>dc", "<cmd> lua require('dap').continue()<cr>")
 vim.keymap.set("n", "<leader>ds", "<cmd> lua require('dap').step_over()<cr>")
 vim.keymap.set("n", "<leader>di", "<cmd> lua require('dap').step_into()<cr>")

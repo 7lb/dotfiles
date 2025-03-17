@@ -6,4 +6,4 @@ require("lsp")
 require("cmp")
 require("lzy")
 
-require("mappings-plugins")
+require("after")
