@@ -23,12 +23,15 @@ local function _select(items, opts, choice_transform)
 end
 
 local function get_executables()
-	local cmd = io.popen("fd"
+	local fd_cmd = "fd"
 		.. " --no-ignore"
 		.. " --type x"
 		.. " --exclude .git"
-		.. " --exclude *.so*")
+		.. " --exclude *.so*"
+		.. " --exclude *.flac"
+		.. " --exclude *.mp3"
 
+	local cmd = io.popen(fd_cmd)
 	local result = cmd:read("*a")
 	cmd:close()
 
