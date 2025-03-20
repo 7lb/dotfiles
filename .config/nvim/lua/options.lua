@@ -22,8 +22,13 @@ vim.o.splitbelow = true
 
 vim.o.foldenable = true
 vim.o.foldlevel = 99
-vim.o.foldmethod = "expr"
-vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+
+vim.api.nvim_create_autocmd("FileType", {
+	callback = function()
+		vim.o.foldmethod = "expr"
+		vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+	end
+})
 
 vim.o.number = true
 vim.o.relativenumber = false
@@ -56,4 +61,4 @@ vim.opt.sessionoptions = {
 	"winsize",
 }
 
-vim.diagnostic.config({ virtual_lines = true })
+vim.diagnostic.config({ virtual_text = true })
