@@ -19,6 +19,7 @@ vim.o.signcolumn = "yes"
 
 vim.o.splitright = true
 vim.o.splitbelow = true
+vim.o.scrolloff = 10
 
 vim.o.foldenable = true
 vim.o.foldlevel = 99
