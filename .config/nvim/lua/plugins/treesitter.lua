@@ -4,7 +4,6 @@ return {
 	build = ":TSUpdate",
 	opts = {
 		highlight = { enable = true },
-		indent = { enable = true },
 		ensure_installed = {
 			"bash",
 			"c",
