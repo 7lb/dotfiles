@@ -24,13 +24,6 @@ vim.o.scrolloff = 10
 vim.o.foldenable = true
 vim.o.foldlevel = 99
 
-vim.api.nvim_create_autocmd("FileType", {
-	callback = function()
-		vim.o.foldmethod = "expr"
-		vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-	end
-})
-
 vim.o.number = true
 vim.o.relativenumber = false
 
@@ -45,8 +38,8 @@ vim.opt.shortmess = vim.opt.shortmess + "c"
 
 vim.o.pumheight = 15
 vim.opt.completeopt = {
-	"menu",
 	"menuone",
+	"noselect",
 	"popup",
 	"fuzzy",
 }

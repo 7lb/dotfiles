@@ -9,7 +9,7 @@ local pum_funcs = {
 	["<cr>"] = function() return pum_remap("<C-y>", "<cr>") end,
 }
 
-vim.keymap.set("i", "<C-space>", "<C-x><C-o>")
+vim.keymap.set("i", "<C-space>", function() vim.lsp.completion.get() end)
 vim.keymap.set("i", "<tab>", pum_funcs["<tab>"], { expr = true })
 vim.keymap.set("i", "<S-tab>", pum_funcs["<S-tab>"], { expr = true })
 vim.keymap.set("i", "<esc>", pum_funcs["<esc>"], { expr = true })

@@ -42,7 +42,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, { buffer = args.buf })
 		vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, { buffer = args.buf })
 
-		vim.lsp.completion.enable(true, args.data.client_id, args.buf, { autotrigger = false })
+		vim.lsp.completion.enable(true, args.data.client_id, args.buf, { autotrigger = true })
 
 		local client = vim.lsp.get_client_by_id(args.data.client_id)
 		if client:supports_method("textDocument/formatting") then

@@ -22,3 +22,11 @@ vim.api.nvim_create_autocmd({ "BufWinEnter", "WinEnter" }, {
 	pattern = "term://*",
 	command = "startinsert",
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "*.c", "*.cpp", "*.h", "*.hpp", "*.inl" },
+	callback = function()
+		vim.o.foldmethod = "expr"
+		vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+	end
+})
