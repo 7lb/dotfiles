@@ -30,8 +30,6 @@ vim.lsp.config("zls", {
 
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(args)
-		vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
-
 		vim.keymap.del("n", "K", { buffer = args.buf })
 
 		vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = args.buf })
