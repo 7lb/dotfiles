@@ -52,6 +52,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			})
 		end
 
+		client.server_capabilities.completionProvider.triggerCharacters = { '.', '<', '>', ':', '"', '/', '*', '_' }
 		if client:supports_method("textDocument/switchSourceHeader") then
 			vim.keymap.set("n", "go", function()
 				local params = vim.lsp.util.make_text_document_params(args.buf)

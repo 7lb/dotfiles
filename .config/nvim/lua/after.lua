@@ -9,6 +9,9 @@ vim.keymap.set("n", "<C-p>", ":FzfLua files<cr>")
 vim.keymap.set("n", "s", "<plug>(leap)")
 vim.keymap.set("n", "gs", "<plug>(leap-from-window)")
 
+-- no-neck-pain mappings
+vim.keymap.set("n", "zz", ":NoNeckPain<cr>");
+
 -- dap mappings
 vim.keymap.set("n", "<leader>dc", "<cmd> lua require('dap').continue()<cr>")
 vim.keymap.set("n", "<leader>ds", "<cmd> lua require('dap').step_over()<cr>")
