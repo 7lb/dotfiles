@@ -28,8 +28,14 @@ M.qf_dedup = function()
 
 	local unique = {}
 	local it = vim.iter(vim.fn.getqflist()):each(function(e)
+		if not e then
+			-- ignore empty
+			return
+		end
+
 		local found = vim.iter(unique):any(function(x) return eql(x, e) end)
 		if found then
+			-- ignore duplicates
 			return
 		end
 
@@ -62,7 +68,10 @@ M.async_make = function()
 
 			M.qf_dedup()
 			vim.api.nvim_command("doautocmd QuickFixCmdPost")
-			vim.cmd("botright copen")
+
+			local win = vim.api.nvim_get_current_win()
+			vim.cmd("botr copen")
+			vim.api.nvim_set_current_win(win)
 		end
 	end
 
