@@ -75,15 +75,13 @@ M.async_make = function()
 		end
 	end
 
-	vim.fn.jobstart(
-		cmd, {
-			on_stdout = on_event,
-			on_stderr = on_event,
-			on_exit = on_event,
-			stdout_buffered = true,
-			stderr_buffered = true,
-		}
-	)
+	vim.fn.jobstart(cmd, {
+		on_stdout = on_event,
+		on_stderr = on_event,
+		on_exit = on_event,
+		stdout_buffered = true,
+		stderr_buffered = true,
+	})
 end
 
 return M
