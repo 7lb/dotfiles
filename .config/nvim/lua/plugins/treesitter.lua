@@ -8,6 +8,7 @@ return {
 			"bash",
 			"c",
 			"cpp",
+			"just",
 			"lua",
 			"markdown",
 			"markdown_inline",

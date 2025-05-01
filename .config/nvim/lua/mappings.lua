@@ -30,16 +30,13 @@ vim.keymap.set("n", "<leader>fo", ":copen<cr>")
 vim.keymap.set("n", "<leader>fc", ":cclose<cr>")
 vim.keymap.set("n", "<leader>fx", ":cexpr [] | cclose<cr>")
 
+-- execution
+vim.keymap.set("n", "<leader>xm", require("utils").async_make)
+
 -- diagnostics
 vim.keymap.set("n", "ge", vim.diagnostic.goto_next)
 vim.keymap.set("n", "gE", vim.diagnostic.goto_prev)
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
 
 -- colors
-vim.keymap.set("n", "<leader><leader>", function()
-	if vim.o.background == "dark" then
-		vim.o.background = "light"
-	else
-		vim.o.background = "dark"
-	end
-end)
+vim.keymap.set("n", "<leader><leader>", require("utils").switch_bg)
