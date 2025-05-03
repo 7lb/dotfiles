@@ -1,0 +1,194 @@
+set-option global tabstop 4
+set-option global indentwidth 0
+set-option global scrolloff 10,10
+
+add-highlighter global/ number-lines -hlcursor
+add-highlighter global/ regex \h+$ 0:Error
+add-highlighter global/ wrap -word -indent
+
+define-command \
+	-docstring 'Horizontal split' \
+	split 'tmux-terminal-vertical kak -c %val{session}<ret>'
+
+define-command \
+	-docstring 'Vertical split' \
+	vsplit 'tmux-terminal-horizontal kak -c %val{session}<ret>'
+
+alias global wqa 'write-all-quit'
+alias global sp 'split'
+alias global vs 'vsplit'
+
+map -docstring 'Easily dismiss selection' global normal <esc> ',;'
+map -docstring 'Search case insensitive' global normal / '/(?i)'
+map -docstring 'Search back case insensitive' global normal <a-/> '<a-/>(?i)'
+map -docstring 'Extend search case insensitive' global normal ? '?(?i)'
+map -docstring 'Extend search back case insensitive' global normal <a-?> '<a-?>(?i)'
+
+# Use <tab> <s-tab> to navigate completion menu
+hook global InsertCompletionShow .* %{
+	try %{
+		map window insert <tab> <c-n>
+		map window insert <s-tab> <c-p>
+		hook -once -always window InsertCompletionHide .* %{
+			unmap window insert <tab>
+			unmap window insert <s-tab>
+		}
+	}
+}
+
+# leader
+declare-user-mode leader
+map -docstring 'Leader mode' global user , ':enter-user-mode leader<ret>'
+
+# lsp
+eval %sh{kak-lsp}
+
+lsp-enable
+lsp-inlay-diagnostics-enable global
+
+unmap global goto d
+unmap global goto y
+unmap global goto r
+
+map -docstring 'LSP mode' global user l ':enter-user-mode lsp<ret>'
+map -docstring 'Select next snippet placeholder' \
+	global insert <tab> '<a-;>:try lsp-snippets-select-next-placeholders catch %{execute-keys -with-hooks <lt>tab>}<ret>'
+map -docstring 'Any symbol object' global object a '<a-;>lsp-object<ret>'
+map -docstring 'Any symbol object' global object <a-a> '<a-;>lsp-object<ret>'
+map -docstring 'Function object' global object f '<a-;>lsp-object Function Method<ret>'
+map -docstring 'Struct object' global object t '<a-;>lsp-object Class Interface Struct<ret>'
+
+# lsp extension to leader mode
+map -docstring 'Signature help' global leader ? ':lsp-signature-help<ret'
+map -docstring 'Hover' global leader h ':lsp-hover<ret>'
+map -docstring 'Rename' global leader r ':lsp-rename-prompt<ret>'
+map -docstring 'Code action' global leader a ':lsp-code-actions<ret>'
+
+declare-user-mode ugoto
+map -docstring 'User goto mode' global user g ':enter-user-mode ugoto<ret>'
+map -docstring 'Goto definition' global ugoto d ':lsp-definition<ret>'
+map -docstring 'Goto type definition' global ugoto t ':lsp-type-definition<ret>'
+map -docstring 'Goto references' global ugoto r ':lsp-references<ret>'
+map -docstring 'Goto other file' global ugoto o ':clangd-switch-source-header<ret>'
+map -docstring 'Goto next error diagnostic' global ugoto e ':lsp-diagnostic-object<ret>'
+map -docstring 'Goto next diagnostic' global ugoto w ':lsp-diagnostic-object --include-warnings<ret>'
+
+
+define-command -docstring 'Find buffer' find-buffer %{ nop %sh{ \
+	buffer=$( \
+	echo "$kak_buflist" \
+	| tr ' ' '\n' \
+	| fzf-tmux \
+		-p 90% \
+		--preview 'bat -n --color=always {}' \
+		--preview-window 'right,border-left,60%') \
+	&& echo "eval -client '$kak_client' buffer '$buffer'" \
+	| kak -p "$kak_session"
+}}
+
+define-command -docstring 'Find file' find-file %{ nop %sh{ \
+	file=$( \
+	fd --type f \
+	| fzf-tmux \
+		-p 90% \
+		--preview 'bat -n --color=always {}' \
+		--preview-window 'right,border-left,60%') \
+	&& echo "eval -client '$kak_client' edit '$file'" \
+	| kak -p "$kak_session"
+}}
+
+define-command -docstring 'Find text' find-text %{ nop %sh{ \
+	rm -f /tmp/rg-fzf-fq
+	rm -f /tmp/rg-fzf-rq
+	rm -f /tmp/rg-fzf-dq
+	echo . > /tmp/rg-fzf-ds
+
+	rgCmd="rg \
+		--hidden \
+		--smart-case \
+		--no-heading \
+		--line-number \
+		--column \
+		--follow \
+		--color=always \
+		--glob '!/.ssh' \
+		--glob '!/.gnupg' \
+		--glob '!/.git' \
+		--glob '!node_modules' \
+		--glob '!/.zig-cache' \
+		--glob '!/zig-out'"
+
+	fdCmd="fd . / \
+		--hidden \
+		--type d"
+
+	rgPrompt="rg> "
+	fzfPrompt="fzf> "
+	dirPrompt="dir> "
+	header=$(echo -e "\033[31;1m<Alt-s>\033[0m: rg/fzf\t\033[31;1m<Alt-d>\033[0m: change dir")
+
+	saveRgQuery="echo {q} > /tmp/rg-fzf-rq"
+	saveFzfQuery="echo {q} > /tmp/rg-fzf-fq"
+	saveFdQuery="echo {q} > /tmp/rg-fzf-dq"
+	saveFdSelection="echo {} > /tmp/rg-fzf-ds"
+
+	saveQuery="[[ \"\$FZF_PROMPT\" = \"$rgPrompt\" ]] \
+		&& $saveRgQuery \
+		|| ([[ \"\$FZF_PROMPT\" = \"$fzfPrompt\" ]] \
+		&& $saveFzfQuery) \
+		|| true"
+
+	loadRgQuery="cat /tmp/rg-fzf-rq"
+	loadFzfQuery="cat /tmp/rg-fzf-fq"
+	loadFdQuery="cat /tmp/rg-fzf-dq"
+	loadFdSelection="cat /tmp/rg-fzf-ds"
+
+	fzfProgram="unbind(change)+change-prompt($fzfPrompt)+enable-search+transform-query($loadFzfQuery)"
+	rgProgram="rebind(change)+change-prompt($rgPrompt)+disable-search+transform-query($loadRgQuery)"
+	switchProgram="[[ \"\$FZF_PROMPT\" = \"$rgPrompt\" ]] \
+		&& ($saveRgQuery && echo \"$fzfProgram\") \
+		|| ([[ \"\$FZF_PROMPT\" = \"$fzfPrompt\" ]] \
+		&& ($saveFzfQuery && echo \"$rgProgram\")) \
+		|| true"
+
+	rgCall="$rgCmd {q} \$($loadFdSelection)"
+	rgFzfMode="rebind(change)+unbind(focus)+change-prompt($rgPrompt)+disable-search+transform-query($loadRgQuery)+reload($rgCall)"
+	fdDirMode="unbind(change)+rebind(focus)+change-prompt($dirPrompt)+enable-search+transform-query($loadFdQuery)+reload($fdCmd)"
+	switchMode="[[ \"\$FZF_PROMPT\" = \"$dirPrompt\" ]] \
+		&& ($saveFdQuery && echo \"$rgFzfMode\") \
+		|| ($saveQuery && echo \"$fdDirMode\")"
+
+	accept="[[ \"\$FZF_PROMPT\" = \"$dirPrompt\" ]] \
+		&& echo \"$rgFzfMode\" \
+		|| echo \"accept\""
+
+	fzfCmd="fzf-tmux \
+		--ansi \
+		--disabled \
+		-p 90% \
+		--delimiter : \
+		--preview 'bat -n --style=header,numbers --color=always {1} --highlight-line {2}' \
+		--preview-window 'bottom,border-top,70%,+{2}+3/3,~1' \
+		--prompt '$rgPrompt' \
+		--header '$header' \
+		--header-first \
+		--highlight-line \
+		--bind 'start:unbind(focus)+reload:$rgCall' \
+		--bind 'change:reload:sleep 0.1; $rgCall || true' \
+		--bind 'focus:transform:$saveFdSelection' \
+		--bind 'enter:transform:$accept' \
+		--bind 'alt-s:transform:$switchProgram' \
+		--bind 'alt-d:transform:$switchMode'"
+
+	entry=$(eval "$fzfCmd" | cut -d: -f1,2,3)
+	if [ -z "$entry" ]; then
+		exit 0
+	fi
+
+	file=$(echo "$entry" | cut -d: -f1)
+	line=$(echo "$entry" | cut -d: -f2)
+	col=$(echo "$entry" | cut -d: -f3)
+
+	echo "eval -client '$kak_client' edit '$file' '$line' '$col'" \
+		| kak -p "$kak_session"
+}}
