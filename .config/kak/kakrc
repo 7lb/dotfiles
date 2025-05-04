@@ -1,3 +1,4 @@
+# options ---------------------------------------------------------------------
 set-option global tabstop 4
 set-option global indentwidth 0
 set-option global scrolloff 10,10
@@ -6,6 +7,7 @@ add-highlighter global/ number-lines -hlcursor
 add-highlighter global/ regex \h+$ 0:Error
 add-highlighter global/ wrap -word -indent
 
+# commands --------------------------------------------------------------------
 define-command \
 	-docstring 'Horizontal split' \
 	split 'tmux-terminal-vertical kak -c %val{session}<ret>'
@@ -18,69 +20,13 @@ alias global wqa 'write-all-quit'
 alias global sp 'split'
 alias global vs 'vsplit'
 
-map -docstring 'Easily dismiss selection' global normal <esc> ',;'
-map -docstring 'Search case insensitive' global normal / '/(?i)'
-map -docstring 'Search back case insensitive' global normal <a-/> '<a-/>(?i)'
-map -docstring 'Extend search case insensitive' global normal ? '?(?i)'
-map -docstring 'Extend search back case insensitive' global normal <a-?> '<a-?>(?i)'
-
-# Use <tab> <s-tab> to navigate completion menu
-hook global InsertCompletionShow .* %{
-	try %{
-		map window insert <tab> <c-n>
-		map window insert <s-tab> <c-p>
-		hook -once -always window InsertCompletionHide .* %{
-			unmap window insert <tab>
-			unmap window insert <s-tab>
-		}
-	}
-}
-
-# leader
-declare-user-mode leader
-map -docstring 'Leader mode' global user , ':enter-user-mode leader<ret>'
-
-# lsp
-eval %sh{kak-lsp}
-
-lsp-enable
-lsp-inlay-diagnostics-enable global
-
-unmap global goto d
-unmap global goto y
-unmap global goto r
-
-map -docstring 'LSP mode' global user l ':enter-user-mode lsp<ret>'
-map -docstring 'Select next snippet placeholder' \
-	global insert <tab> '<a-;>:try lsp-snippets-select-next-placeholders catch %{execute-keys -with-hooks <lt>tab>}<ret>'
-map -docstring 'Any symbol object' global object a '<a-;>lsp-object<ret>'
-map -docstring 'Any symbol object' global object <a-a> '<a-;>lsp-object<ret>'
-map -docstring 'Function object' global object f '<a-;>lsp-object Function Method<ret>'
-map -docstring 'Struct object' global object t '<a-;>lsp-object Class Interface Struct<ret>'
-
-# lsp extension to leader mode
-map -docstring 'Signature help' global leader ? ':lsp-signature-help<ret'
-map -docstring 'Hover' global leader h ':lsp-hover<ret>'
-map -docstring 'Rename' global leader r ':lsp-rename-prompt<ret>'
-map -docstring 'Code action' global leader a ':lsp-code-actions<ret>'
-
-declare-user-mode ugoto
-map -docstring 'User goto mode' global user g ':enter-user-mode ugoto<ret>'
-map -docstring 'Goto definition' global ugoto d ':lsp-definition<ret>'
-map -docstring 'Goto type definition' global ugoto t ':lsp-type-definition<ret>'
-map -docstring 'Goto references' global ugoto r ':lsp-references<ret>'
-map -docstring 'Goto other file' global ugoto o ':clangd-switch-source-header<ret>'
-map -docstring 'Goto next error diagnostic' global ugoto e ':lsp-diagnostic-object<ret>'
-map -docstring 'Goto next diagnostic' global ugoto w ':lsp-diagnostic-object --include-warnings<ret>'
-
-
 define-command -docstring 'Find buffer' find-buffer %{ nop %sh{ \
 	buffer=$( \
 	echo "$kak_buflist" \
 	| tr ' ' '\n' \
 	| fzf-tmux \
 		-p 90% \
-		--preview 'bat -n --color=always {}' \
+		--preview 'bat -n --color=always {1}' \
 		--preview-window 'right,border-left,60%') \
 	&& echo "eval -client '$kak_client' buffer '$buffer'" \
 	| kak -p "$kak_session"
@@ -200,3 +146,61 @@ define-command -docstring 'Find text' find-text %{ nop %sh{ \
 	echo "eval -client '$kak_client' edit '$file' '$line' '$col'" \
 		| kak -p "$kak_session"
 }}
+
+# hooks -----------------------------------------------------------------------
+# Use <tab> <s-tab> to navigate completion menu -------------------------------
+hook global InsertCompletionShow .* %{
+	try %{
+		map window insert <tab> <c-n>
+		map window insert <s-tab> <c-p>
+		hook -once -always window InsertCompletionHide .* %{
+			unmap window insert <tab>
+			unmap window insert <s-tab>
+		}
+	}
+}
+
+# map modes and mappings ------------------------------------------------------
+# leader ----------------------------------------------------------------------
+declare-user-mode leader
+
+map -docstring 'Leader mode' global user , ':enter-user-mode leader<ret>'
+map -docstring 'Easily dismiss selection' global normal <esc> ',;'
+map -docstring 'Search case insensitive' global normal / '/(?i)'
+map -docstring 'Search back case insensitive' global normal <a-/> '<a-/>(?i)'
+map -docstring 'Extend search case insensitive' global normal ? '?(?i)'
+map -docstring 'Extend search back case insensitive' global normal <a-?> '<a-?>(?i)'
+
+# plugins and config ----------------------------------------------------------
+# lsp -------------------------------------------------------------------------
+eval %sh{kak-lsp}
+
+lsp-enable
+lsp-inlay-diagnostics-enable global
+
+unmap global goto d
+unmap global goto y
+unmap global goto r
+
+map -docstring 'LSP mode' global user l ':enter-user-mode lsp<ret>'
+map -docstring 'Select next snippet placeholder' \
+	global insert <tab> '<a-;>:try lsp-snippets-select-next-placeholders catch %{execute-keys -with-hooks <lt>tab>}<ret>'
+map -docstring 'Any symbol object' global object a '<a-;>lsp-object<ret>'
+map -docstring 'Any symbol object' global object <a-a> '<a-;>lsp-object<ret>'
+map -docstring 'Function object' global object f '<a-;>lsp-object Function Method<ret>'
+map -docstring 'Struct object' global object t '<a-;>lsp-object Class Interface Struct<ret>'
+
+# lsp extension to leader mode
+map -docstring 'Signature help' global leader ? ':lsp-signature-help<ret'
+map -docstring 'Hover' global leader h ':lsp-hover<ret>'
+map -docstring 'Rename' global leader r ':lsp-rename-prompt<ret>'
+map -docstring 'Code action' global leader a ':lsp-code-actions<ret>'
+
+declare-user-mode ugoto
+map -docstring 'User goto mode' global user g ':enter-user-mode ugoto<ret>'
+map -docstring 'Goto definition' global ugoto d ':lsp-definition<ret>'
+map -docstring 'Goto type definition' global ugoto t ':lsp-type-definition<ret>'
+map -docstring 'Goto references' global ugoto r ':lsp-references<ret>'
+map -docstring 'Goto other file' global ugoto o ':clangd-switch-source-header<ret>'
+map -docstring 'Goto next error diagnostic' global ugoto e ':lsp-diagnostic-object<ret>'
+map -docstring 'Goto next diagnostic' global ugoto w ':lsp-diagnostic-object --include-warnings<ret>'
