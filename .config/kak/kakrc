@@ -87,14 +87,22 @@ define-command -docstring 'Find buffer' find-buffer %{ nop %sh{ \
 }}
 
 define-command -docstring 'Find file' find-file %{ nop %sh{ \
-	file=$( \
-	fd --type f \
-	| fzf-tmux \
+	fdCmd="fd \
+		--hidden \
+		--type f"
+
+	fzfCmd="fzf-tmux \
 		-p 90% \
-		--preview 'bat -n --color=always {}' \
-		--preview-window 'right,border-left,60%') \
-	&& echo "eval -client '$kak_client' edit '$file'" \
-	| kak -p "$kak_session"
+		--preview 'bat -n --color=always {1}' \
+		--preview-window 'right,border-left,60%'"
+
+	file=$(eval "$fdCmd | $fzfCmd")
+	if [ -z "$file" ]; then
+		exit 0
+	fi
+
+	echo "eval -client '$kak_client' edit '$file'" \
+		| kak -p "$kak_session"
 }}
 
 define-command -docstring 'Find text' find-text %{ nop %sh{ \
