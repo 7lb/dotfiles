@@ -35,7 +35,13 @@ define-command -docstring 'Find buffer' find-buffer %{ nop %sh{ \
 define-command -docstring 'Find file' find-file %{ nop %sh{ \
 	fdCmd="fd \
 		--hidden \
-		--type f"
+		--type f \
+		--exclude '/.ssh' \
+		--exclude '/.gnupg' \
+		--exclude '/.git' \
+		--exclude '/.zig-cache' \
+		--exclude '/zig-out' \
+		--exclude 'node_modules'"
 
 	fzfCmd="fzf-tmux \
 		-p 90% \
@@ -68,9 +74,9 @@ define-command -docstring 'Find text' find-text %{ nop %sh{ \
 		--glob '!/.ssh' \
 		--glob '!/.gnupg' \
 		--glob '!/.git' \
-		--glob '!node_modules' \
 		--glob '!/.zig-cache' \
 		--glob '!/zig-out'"
+		--glob '!node_modules' \
 
 	fdCmd="fd . / \
 		--hidden \
@@ -161,7 +167,6 @@ hook global InsertCompletionShow .* %{
 }
 
 # map modes and mappings ------------------------------------------------------
-# leader ----------------------------------------------------------------------
 declare-user-mode leader
 
 map -docstring 'Leader mode' global user , ':enter-user-mode leader<ret>'
@@ -170,6 +175,8 @@ map -docstring 'Search case insensitive' global normal / '/(?i)'
 map -docstring 'Search back case insensitive' global normal <a-/> '<a-/>(?i)'
 map -docstring 'Extend search case insensitive' global normal ? '?(?i)'
 map -docstring 'Extend search back case insensitive' global normal <a-?> '<a-?>(?i)'
+map -docstring 'Find file' global normal <c-p> ':find-file<ret>'
+map -docstring 'Find text' global normal <c-f> ':find-text<ret>'
 
 # plugins and config ----------------------------------------------------------
 # lsp -------------------------------------------------------------------------
@@ -204,3 +211,8 @@ map -docstring 'Goto references' global ugoto r ':lsp-references<ret>'
 map -docstring 'Goto other file' global ugoto o ':clangd-switch-source-header<ret>'
 map -docstring 'Goto next error diagnostic' global ugoto e ':lsp-diagnostic-object<ret>'
 map -docstring 'Goto next diagnostic' global ugoto w ':lsp-diagnostic-object --include-warnings<ret>'
+
+hook global BufWritePre .* lsp-formatting-sync
+
+# treesitter
+eval %sh{ kak-treesitter -dks --init "$kak_session" }
