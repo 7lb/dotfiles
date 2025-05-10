@@ -32,9 +32,40 @@ define-command -docstring 'Find buffer' find-buffer %{ nop %sh{ \
 	| kak -p "$kak_session"
 }}
 
+define-command -hidden change-root-internal -params 2.. %{ echo %sh{
+	# 1: lets you choose a directory searching in /home
+	# 2: invokes the original command passing along the new chosen
+	# 	 root (or the old one if none chosen) and any other params
+
+	cmd="$1"
+	oldRoot="$2"
+
+	shift 2
+	cmdArgs="$@"
+
+	fdCmd="fd . /home \
+		--hidden \
+		--type d"
+
+	fzfCmd="fzf-tmux \
+		-p 90% \
+		--preview 'ls -lh --color=always {}' \
+		--preview-window 'right,border-left,60%' \
+		--bind 'enter:execute( \
+			echo \"eval -client '$kak_client' '$cmd' %{{}} $cmdArgs\" | kak -p '$kak_session'
+		)+accept'"
+
+	newRoot=$(eval "$fdCmd | $fzfCmd")
+	if [ -z "$newRoot" ]; then
+		echo "eval -client '$kak_client' '$cmd' '$oldRoot' $cmdArgs" | kak -p "$kak_session"
+	fi
+}}
+
 define-command -docstring 'Find file' find-file %{ evaluate-commands %{find-file-internal .} }
-define-command -hidden find-file-internal -params 1 %{ echo %sh{
-	fdCmd="fd \
+define-command -hidden find-file-internal -params 1.. %{ echo %sh{
+	rootDir="$1"
+
+	fdCmd="fd . '$rootDir' \
 		--hidden \
 		--type f \
 		--exclude '/.git' \
@@ -45,7 +76,12 @@ define-command -hidden find-file-internal -params 1 %{ echo %sh{
 		--preview 'bat -n --color=always {}' \
 		--preview-window 'right,border-left,60%' \
 		--bind 'enter:execute( \
-			echo \"eval -client '$kak_client' edit %{{}}\" | kak -p '$kak_session'
+			echo \"eval -client '$kak_client' edit %{{}}\" | kak -p '$kak_session' \
+		)+accept' \
+		--bind 'alt-d:execute( \
+			echo \"eval -client '$kak_client' \
+			evaluate-commands  change-root-internal find-file-internal $rootDir\" \
+			| kak -p '$kak_session' \
 		)+accept'"
 
 	eval "$fdCmd | $fzfCmd"
