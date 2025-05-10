@@ -43,21 +43,19 @@ define-command -hidden change-root-internal -params 2.. %{ nop %sh{
 	shift 2
 	cmdArgs="$@"
 
-	fdCmd="fd . /home \
+	newRoot=$(fd . /home \
 		--hidden \
-		--type d"
-
-	fzfCmd="fzf-tmux \
+		--type d \
+	| fzf-tmux \
 		-p 90% \
 		--ansi \
 		--highlight-line \
-		--preview 'ls -lh --color=always {}' \
-		--preview-window 'right,border-left,60%' \
-		--bind 'enter:execute( \
+		--preview "ls -lh --color=always {}" \
+		--preview-window "right,border-left,60%" \
+		--bind "enter:execute( \
 			echo \"eval -client '$kak_client' '$cmd' %{{}} $cmdArgs\" | kak -p '$kak_session'
-		)+accept'"
+		)+accept")
 
-	newRoot=$(eval "$fdCmd | $fzfCmd")
 	if [ -z "$newRoot" ]; then
 		echo "eval -client '$kak_client' '$cmd' '$oldRoot' $cmdArgs" | kak -p "$kak_session"
 	fi
@@ -67,28 +65,25 @@ define-command -docstring 'Find file' find-file %{ evaluate-commands %{find-file
 define-command -hidden find-file-internal -params 1.. %{ nop %sh{
 	rootDir="$1"
 
-	fdCmd="fd . '$rootDir' \
+	fd . "$rootDir" \
 		--hidden \
 		--type f \
-		--exclude '/.git' \
-		--exclude '/.zig-cache'"
-
-	fzfCmd="fzf-tmux \
+		--exclude "/.git" \
+		--exclude "/.zig-cache" \
+	| fzf-tmux \
 		-p 90% \
 		--ansi \
 		--highlight-line \
-		--preview 'bat -n --color=always {}' \
-		--preview-window 'right,border-left,60%' \
-		--bind 'enter:execute( \
+		--preview "bat -n --color=always {}" \
+		--preview-window "right,border-left,60%" \
+		--bind "enter:execute( \
 			echo \"eval -client '$kak_client' edit %{{}}\" | kak -p '$kak_session' \
-		)+accept' \
-		--bind 'alt-d:execute( \
+		)+accept" \
+		--bind "alt-d:execute( \
 			echo \"eval -client '$kak_client' \
-			evaluate-commands change-root-internal find-file-internal $rootDir\" \
+			%{ evaluate-commands %{ change-root-internal find-file-internal $rootDir } }\" \
 			| kak -p '$kak_session' \
-		)+accept'"
-
-	eval "$fdCmd | $fzfCmd"
+		)+accept"
 }}
 
 define-command -docstring 'Find text' find-text %{ evaluate-commands %{find-text-internal .} }
@@ -105,27 +100,25 @@ define-command -hidden find-text-internal -params 1.. %{ nop %sh{
 		--glob '!/.git' \
 		--glob '!/.zig-cache'"
 
-	fzfCmd="fzf-tmux \
+	fzf-tmux \
 		-p 90% \
 		--ansi \
 		--highlight-line \
 		--disabled \
 		--delimiter : \
-		--preview 'bat -n --style=header,numbers --color=always {1} --highlight-line {2}' \
-		--preview-window 'bottom,border-top,70%,+{2}+3/3,~1' \
-		--prompt 'rg> ' \
-		--bind 'start:reload:$rgCmd {q} $rootDir' \
-		--bind 'change:reload:sleep 0.1; $rgCmd {q} $rootDir || true' \
-		--bind 'enter:execute( \
+		--preview "bat -n --style=header,numbers --color=always {1} --highlight-line {2}" \
+		--preview-window "bottom,border-top,70%,+{2}+3/3,~1" \
+		--prompt "rg> " \
+		--bind "start:reload:$rgCmd {q} $rootDir" \
+		--bind "change:reload:sleep 0.1; $rgCmd {q} $rootDir || true" \
+		--bind "enter:execute( \
 			echo \"eval -client '$kak_client' edit %{{1}} %{{2}} %{{3}}\" | kak -p '$kak_session'
-		)+accept' \
-		--bind 'alt-d:execute( \
+		)+accept" \
+		--bind "alt-d:execute( \
 			echo \"eval -client '$kak_client' \
-			evaluate-commands change-root-internal find-text-internal $rootDir\" \
+			%{ evaluate-commands %{ change-root-internal find-text-internal $rootDir } }\" \
 			| kak -p '$kak_session' \
-		)+accept'"
-
-	eval "$fzfCmd"
+		)+accept"
 }}
 
 define-command -docstring 'Find text' find-text-old %{ nop %sh{ \
