@@ -20,23 +20,11 @@ alias global wqa 'write-all-quit'
 alias global sp 'split'
 alias global vs 'vsplit'
 
-define-command -docstring 'Find buffer' find-buffer %{ nop %sh{ \
-	buffer=$( \
-	echo "$kak_buflist" \
-	| tr ' ' '\n' \
-	| fzf-tmux \
-		-p 90% \
-		--preview 'bat -n --color=always {1}' \
-		--preview-window 'right,border-left,60%') \
-	&& echo "eval -client '$kak_client' buffer '$buffer'" \
-	| kak -p "$kak_session"
-}}
-
 define-command -hidden refine -params 2.. %{ nop %sh{
 	# $1 is a path to a file containing the items to filter
 	#    the file is space-separated single-quoted paths, but we need
 	#    newline-separated unquoted paths to pipe to fzf
-	# $2 is either file, dir, or text, to determine how to preview and confirm
+	# $2 is either file, dir, text, or buffer to determine how to preview and confirm
 	# $3.. are command-specific parameters that are forwarded,
 	#    e.g. change-root-internal forwards the original command and
 	#    original root dir so it can re-invoke the command it was
@@ -53,7 +41,7 @@ define-command -hidden refine -params 2.. %{ nop %sh{
 	cmdArgs="$*"
 
 	case "$type" in
-	file | dir)
+	file | dir | buffer)
 		delimiter=""
 		;;
 	text)
@@ -62,7 +50,7 @@ define-command -hidden refine -params 2.. %{ nop %sh{
 	esac
 
 	case "$type" in
-	file)
+	file | buffer)
 		preview="bat -n --color=always {}"
 		previewWindow="right,border-left,60%"
 		;;
@@ -87,6 +75,9 @@ define-command -hidden refine -params 2.. %{ nop %sh{
 		shift 2
 		innerArgs="$*"
 		onAccept="printf %s \"eval -client '$kak_client' '$cmd' %{{}} $innerArgs\" | kak -p '$kak_session'"
+		;;
+	buffer)
+		onAccept="printf %s \"eval -client '$kak_client' buffer %{{}}\" | kak -p '$kak_session'"
 		;;
 	text)
 		onAccept="printf %s \"eval -client '$kak_client' edit %{{1}} %{{2}} %{{3}}\" | kak -p '$kak_session'"
@@ -224,6 +215,25 @@ define-command -hidden find-text-internal -params 1.. %{ nop %sh{
 		--bind "alt-s:select-all+become( \
 			printf %s \"eval -client '$kak_client' \
 			refine %{{+f}} text\" | kak -p '$kak_session' \
+		)"
+}}
+
+define-command -docstring 'Find buffer' find-buffer %{ evaluate-commands %{ find-buffer-internal } }
+define-command -hidden find-buffer-internal -params 0.. %{ nop %sh{
+	buffers=$(printf %s "$kak_buflist" | tr " " "\n")
+	printf %s "$buffers" | fzf-tmux \
+		-p 90% \
+		--ansi \
+		--multi \
+		--highlight-line \
+		--preview "bat -n --color=always {}" \
+		--preview-window "right,border-left,60%" \
+		--bind "enter:execute( \
+			printf %s \"eval -client '$kak_client' buffer %{{}}\" | kak -p '$kak_session' \
+		)+accept" \
+		--bind "alt-s:select-all+become( \
+			printf %s \"eval -client '$kak_client' \
+			refine %{{+f}} buffer\" | kak -p '$kak_session' \
 		)"
 }}
 
