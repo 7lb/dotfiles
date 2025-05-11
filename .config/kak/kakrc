@@ -204,6 +204,7 @@ define-command -hidden find-text-internal -params 1.. %{ nop %sh{
 	fzf-tmux \
 		-p 90% \
 		--ansi \
+		--multi \
 		--highlight-line \
 		--disabled \
 		--delimiter : \
@@ -217,8 +218,12 @@ define-command -hidden find-text-internal -params 1.. %{ nop %sh{
 		)+accept" \
 		--bind "alt-d:become( \
 			printf %s \"eval -client '$kak_client' \
-			%{ evaluate-commands %{ change-root-internal find-text-internal $rootDir } }\" \
+			change-root-internal find-text-internal $rootDir\" \
 			| kak -p '$kak_session' \
+		)" \
+		--bind "alt-s:select-all+become( \
+			printf %s \"eval -client '$kak_client' \
+			refine %{{+f}} text\" | kak -p '$kak_session' \
 		)"
 }}
 
