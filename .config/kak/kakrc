@@ -45,7 +45,8 @@ define-command -hidden refine -params 2.. %{ nop %sh{
 	#
 	# This function can "call" itself recursively
 
-	items=$(cat "$1" | sed "s/' '/'\n'/g" | tr -d "'")
+	itemsFile="$1"
+	items=$(cat "$itemsFile" | sed "s/' '/'\n'/g" | tr -d "'")
 	type="$2"
 
 	shift 2
@@ -106,6 +107,16 @@ define-command -hidden refine -params 2.. %{ nop %sh{
 			refine %{{+f}} $type $cmdArgs\" \
 			| kak -p '$kak_session' \
 		)"
+
+	# When using `execute` with a {+f} placeholder, the temp file gets deleted
+	# at the end of the `execute` process. That does not work for us because we
+	# just execute a `printf`, so by the time control reaches this kakoune command,
+	# the file itself would have been deleted.
+	# That doesn't happen with `become`, which allows infinite refinement,
+	# but that also means we need to clean the temp file ourselves otherwise we
+	# litter the tempfs with tons of possibly very big files (refining the
+	# result of choose-root-dir creates an 8.1MiB temp file on my system)
+	rm -f "$itemsFile"
 }}
 
 define-command -hidden change-root-internal -params 2.. %{ nop %sh{
@@ -209,102 +220,6 @@ define-command -hidden find-text-internal -params 1.. %{ nop %sh{
 			%{ evaluate-commands %{ change-root-internal find-text-internal $rootDir } }\" \
 			| kak -p '$kak_session' \
 		)"
-}}
-
-define-command -docstring 'Find text' find-text-old %{ nop %sh{ \
-	rm -f /tmp/rg-fzf-fq
-	rm -f /tmp/rg-fzf-rq
-	rm -f /tmp/rg-fzf-dq
-	echo . > /tmp/rg-fzf-ds
-
-	rgCmd="rg \
-		--hidden \
-		--smart-case \
-		--no-heading \
-		--line-number \
-		--column \
-		--follow \
-		--color=always \
-		--glob '!/.ssh' \
-		--glob '!/.gnupg' \
-		--glob '!/.git' \
-		--glob '!/.zig-cache' \
-		--glob '!/zig-out'"
-		--glob '!node_modules' \
-
-	fdCmd="fd . / \
-		--hidden \
-		--type d"
-
-	rgPrompt="rg> "
-	fzfPrompt="fzf> "
-	dirPrompt="dir> "
-	header=$(echo -e "\033[31;1m<Alt-s>\033[0m: rg/fzf\t\033[31;1m<Alt-d>\033[0m: change dir")
-
-	saveRgQuery="echo {q} > /tmp/rg-fzf-rq"
-	saveFzfQuery="echo {q} > /tmp/rg-fzf-fq"
-	saveFdQuery="echo {q} > /tmp/rg-fzf-dq"
-	saveFdSelection="echo {} > /tmp/rg-fzf-ds"
-
-	saveQuery="[[ \"\$FZF_PROMPT\" = \"$rgPrompt\" ]] \
-		&& $saveRgQuery \
-		|| ([[ \"\$FZF_PROMPT\" = \"$fzfPrompt\" ]] \
-		&& $saveFzfQuery) \
-		|| true"
-
-	loadRgQuery="cat /tmp/rg-fzf-rq"
-	loadFzfQuery="cat /tmp/rg-fzf-fq"
-	loadFdQuery="cat /tmp/rg-fzf-dq"
-	loadFdSelection="cat /tmp/rg-fzf-ds"
-
-	fzfProgram="unbind(change)+change-prompt($fzfPrompt)+enable-search+transform-query($loadFzfQuery)"
-	rgProgram="rebind(change)+change-prompt($rgPrompt)+disable-search+transform-query($loadRgQuery)"
-	switchProgram="[[ \"\$FZF_PROMPT\" = \"$rgPrompt\" ]] \
-		&& ($saveRgQuery && echo \"$fzfProgram\") \
-		|| ([[ \"\$FZF_PROMPT\" = \"$fzfPrompt\" ]] \
-		&& ($saveFzfQuery && echo \"$rgProgram\")) \
-		|| true"
-
-	rgCall="$rgCmd {q} \$($loadFdSelection)"
-	rgFzfMode="rebind(change)+unbind(focus)+change-prompt($rgPrompt)+disable-search+transform-query($loadRgQuery)+reload($rgCall)"
-	fdDirMode="unbind(change)+rebind(focus)+change-prompt($dirPrompt)+enable-search+transform-query($loadFdQuery)+reload($fdCmd)"
-	switchMode="[[ \"\$FZF_PROMPT\" = \"$dirPrompt\" ]] \
-		&& ($saveFdQuery && echo \"$rgFzfMode\") \
-		|| ($saveQuery && echo \"$fdDirMode\")"
-
-	accept="[[ \"\$FZF_PROMPT\" = \"$dirPrompt\" ]] \
-		&& echo \"$rgFzfMode\" \
-		|| echo \"accept\""
-
-	fzfCmd="fzf-tmux \
-		--ansi \
-		--disabled \
-		-p 90% \
-		--delimiter : \
-		--preview 'bat -n --style=header,numbers --color=always {1} --highlight-line {2}' \
-		--preview-window 'bottom,border-top,70%,+{2}+3/3,~1' \
-		--prompt '$rgPrompt' \
-		--header '$header' \
-		--header-first \
-		--highlight-line \
-		--bind 'start:unbind(focus)+reload:$rgCall' \
-		--bind 'change:reload:sleep 0.1; $rgCall || true' \
-		--bind 'focus:transform:$saveFdSelection' \
-		--bind 'enter:transform:$accept' \
-		--bind 'alt-s:transform:$switchProgram' \
-		--bind 'alt-d:transform:$switchMode'"
-
-	entry=$(eval "$fzfCmd" | cut -d: -f1,2,3)
-	if [ -z "$entry" ]; then
-		exit 0
-	fi
-
-	file=$(echo "$entry" | cut -d: -f1)
-	line=$(echo "$entry" | cut -d: -f2)
-	col=$(echo "$entry" | cut -d: -f3)
-
-	echo "eval -client '$kak_client' edit '$file' '$line' '$col'" \
-		| kak -p "$kak_session"
 }}
 
 # hooks -----------------------------------------------------------------------
