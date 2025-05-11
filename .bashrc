@@ -12,5 +12,6 @@ source /usr/share/bash-completion/completions/git
 
 PROMPT_COMMAND=buildPrompt
 EDITOR=nvim
+FZF_DEFAULT_OPTS_FILE=~/.config/fzf/fzfrc
 
 PATH=~/bin:~/bin/bin:$PATH

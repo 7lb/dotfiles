@@ -20,6 +20,10 @@ alias global wqa 'write-all-quit'
 alias global sp 'split'
 alias global vs 'vsplit'
 
+define-command -docstring 'Edit config' conf %{
+	edit ~/.config/kak/kakrc
+}
+
 define-command -hidden refine -params 2.. %{ nop %sh{
 	# $1 is a path to a file containing the items to filter
 	#    the file is space-separated single-quoted paths, but we need
@@ -238,16 +242,10 @@ define-command -hidden find-buffer-internal -params 0.. %{ nop %sh{
 }}
 
 # hooks -----------------------------------------------------------------------
-# Use <tab> <s-tab> to navigate completion menu -------------------------------
-hook global InsertCompletionShow .* %{
-	try %{
-		map window insert <tab> <c-n>
-		map window insert <s-tab> <c-p>
-		hook -once -always window InsertCompletionHide .* %{
-			unmap window insert <tab>
-			unmap window insert <s-tab>
-		}
-	}
+
+# consider .clang-format yaml
+hook global BufCreate .clang-format %{
+	set-option buffer filetype yaml
 }
 
 # map modes and mappings ------------------------------------------------------
@@ -282,7 +280,7 @@ map -docstring 'Function object' global object f '<a-;>lsp-object Function Metho
 map -docstring 'Struct object' global object t '<a-;>lsp-object Class Interface Struct<ret>'
 
 # lsp extension to leader mode
-map -docstring 'Signature help' global leader ? ':lsp-signature-help<ret'
+map -docstring 'Signature help' global leader ? ':lsp-signature-help<ret>'
 map -docstring 'Hover' global leader h ':lsp-hover<ret>'
 map -docstring 'Rename' global leader r ':lsp-rename-prompt<ret>'
 map -docstring 'Code action' global leader a ':lsp-code-actions<ret>'
@@ -295,6 +293,8 @@ map -docstring 'Goto references' global ugoto r ':lsp-references<ret>'
 map -docstring 'Goto other file' global ugoto o ':clangd-switch-source-header<ret>'
 map -docstring 'Goto next error diagnostic' global ugoto e ':lsp-diagnostic-object<ret>'
 map -docstring 'Goto next diagnostic' global ugoto w ':lsp-diagnostic-object --include-warnings<ret>'
+map -docstring 'Goto next symbol' global ugoto n ':lsp-next-symbol Class Interface Struct Function Method<ret>'
+map -docstring 'Goto prev symbol' global ugoto p ':lsp-previous-symbol Class Interface Struct Function Method<ret>'
 
 hook global BufWritePre .* lsp-formatting-sync
 
