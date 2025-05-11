@@ -32,16 +32,95 @@ define-command -docstring 'Find buffer' find-buffer %{ nop %sh{ \
 	| kak -p "$kak_session"
 }}
 
+define-command -hidden refine -params 2.. %{ nop %sh{
+	# $1 is a path to a file containing the items to filter
+	#    the file is space-separated single-quoted paths, but we need
+	#    newline-separated unquoted paths to pipe to fzf
+	# $2 is either file, dir, or text, to determine how to preview and confirm
+	# $3.. are command-specific parameters that are forwarded,
+	#    e.g. change-root-internal forwards the original command and
+	#    original root dir so it can re-invoke the command it was
+	#    invoked from, with either the original rootDir (if esc is pressed)
+	#    or with the new choice of rootDir (if one was selected)
+	#
+	# This function can "call" itself recursively
+
+	items=$(cat "$1" | sed "s/' '/'\n'/g" | tr -d "'")
+	type="$2"
+
+	shift 2
+	cmdArgs="$*"
+
+	case "$type" in
+	file | dir)
+		delimiter=""
+		;;
+	text)
+		delimiter=":"
+		;;
+	esac
+
+	case "$type" in
+	file)
+		preview="bat -n --color=always {}"
+		previewWindow="right,border-left,60%"
+		;;
+	dir)
+		preview="ls -lh --color=always {}"
+		previewWindow="right,border-left,60%"
+		;;
+	text)
+		preview="bat -n --style=header,numbers --color=always {1} --highlight-line {2}"
+		previewWindow="bottom,border-top,70%,+{2}+3/3,~1"
+		;;
+	esac
+
+	case "$type" in
+	file)
+		onAccept="printf %s \"eval -client '$kak_client' edit %{{}}\" | kak -p '$kak_session'"
+		;;
+	dir)
+		cmd="$1"
+		oldRoot="$2"
+
+		shift 2
+		innerArgs="$*"
+		onAccept="printf %s \"eval -client '$kak_client' '$cmd' %{{}} $innerArgs\" | kak -p '$kak_session'"
+		;;
+	text)
+		onAccept="printf %s \"eval -client '$kak_client' edit %{{1}} %{{2}} %{{3}}\" | kak -p '$kak_session'"
+		;;
+	esac
+
+	printf %s "$items" | fzf-tmux \
+		-p 90% \
+		--ansi \
+		--multi \
+		--highlight-line \
+		--delimiter="$delimiter" \
+		--preview "$preview" \
+		--preview-window "$previewWindow" \
+		--bind "enter:execute($onAccept)+accept" \
+		--bind "alt-s:select-all+become( \
+			printf %s \"eval -client '$kak_client' \
+			refine %{{+f}} $type $cmdArgs\" \
+			| kak -p '$kak_session' \
+		)"
+}}
+
 define-command -hidden change-root-internal -params 2.. %{ nop %sh{
-	# 1: lets you choose a directory searching in /home
-	# 2: invokes the original command passing along the new chosen
-	# 	 root (or the old one if none chosen) and any other params
+	# $1 is the kakoune command this command was invoked from
+	# $2 is the root dir of the caller at the time of the call
+	# $3.. are any command-specific parameters pertaining to $1
+	#
+	# This function lets you choose a directory under /home from which to
+	# run the original command, if one needs to look outside of $cwd
 
 	cmd="$1"
 	oldRoot="$2"
 
 	shift 2
-	cmdArgs="$@"
+	cmdArgs="$*"
 
 	newRoot=$(fd . /home \
 		--hidden \
@@ -49,15 +128,21 @@ define-command -hidden change-root-internal -params 2.. %{ nop %sh{
 	| fzf-tmux \
 		-p 90% \
 		--ansi \
+		--multi \
 		--highlight-line \
 		--preview "ls -lh --color=always {}" \
 		--preview-window "right,border-left,60%" \
 		--bind "enter:execute( \
-			echo \"eval -client '$kak_client' '$cmd' %{{}} $cmdArgs\" | kak -p '$kak_session'
-		)+accept")
+			printf %s \"eval -client '$kak_client' '$cmd' %{{}} $cmdArgs\" | kak -p '$kak_session' \
+		)+accept" \
+		--bind "alt-s:select-all+become( \
+			printf %s \"eval -client '$kak_client' \
+			refine %{{+f}} dir '$cmd' '$oldRoot' $cmdArgs\" \
+			| kak -p '$kak_session' \
+		)")
 
-	if [ -z "$newRoot" ]; then
-		echo "eval -client '$kak_client' '$cmd' '$oldRoot' $cmdArgs" | kak -p "$kak_session"
+	if [ "$?" -ne 0 ]; then # esc pressed
+		printf %s "eval -client '$kak_client' '$cmd' '$oldRoot' $cmdArgs" | kak -p "$kak_session"
 	fi
 }}
 
@@ -73,17 +158,22 @@ define-command -hidden find-file-internal -params 1.. %{ nop %sh{
 	| fzf-tmux \
 		-p 90% \
 		--ansi \
+		--multi \
 		--highlight-line \
 		--preview "bat -n --color=always {}" \
 		--preview-window "right,border-left,60%" \
 		--bind "enter:execute( \
-			echo \"eval -client '$kak_client' edit %{{}}\" | kak -p '$kak_session' \
+			printf %s \"eval -client '$kak_client' edit %{{}}\" | kak -p '$kak_session' \
 		)+accept" \
-		--bind "alt-d:execute( \
-			echo \"eval -client '$kak_client' \
-			%{ evaluate-commands %{ change-root-internal find-file-internal $rootDir } }\" \
+		--bind "alt-d:become( \
+			printf %s \"eval -client '$kak_client' \
+			change-root-internal find-file-internal $rootDir\" \
 			| kak -p '$kak_session' \
-		)+accept"
+		)" \
+		--bind "alt-s:select-all+become( \
+			printf %s \"eval -client '$kak_client' \
+			refine %{{+f}} file\" | kak -p '$kak_session' \
+		)"
 }}
 
 define-command -docstring 'Find text' find-text %{ evaluate-commands %{find-text-internal .} }
@@ -112,13 +202,13 @@ define-command -hidden find-text-internal -params 1.. %{ nop %sh{
 		--bind "start:reload:$rgCmd {q} $rootDir" \
 		--bind "change:reload:sleep 0.1; $rgCmd {q} $rootDir || true" \
 		--bind "enter:execute( \
-			echo \"eval -client '$kak_client' edit %{{1}} %{{2}} %{{3}}\" | kak -p '$kak_session'
+			printf %s \"eval -client '$kak_client' edit %{{1}} %{{2}} %{{3}}\" | kak -p '$kak_session' \
 		)+accept" \
-		--bind "alt-d:execute( \
-			echo \"eval -client '$kak_client' \
+		--bind "alt-d:become( \
+			printf %s \"eval -client '$kak_client' \
 			%{ evaluate-commands %{ change-root-internal find-text-internal $rootDir } }\" \
 			| kak -p '$kak_session' \
-		)+accept"
+		)"
 }}
 
 define-command -docstring 'Find text' find-text-old %{ nop %sh{ \
