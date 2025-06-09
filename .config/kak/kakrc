@@ -7,14 +7,16 @@ add-highlighter global/ number-lines -hlcursor
 add-highlighter global/ regex \h+$ 0:Error
 add-highlighter global/ wrap -word -indent
 
+colorscheme kanagawa
+
 # commands --------------------------------------------------------------------
 define-command \
 	-docstring 'Horizontal split' \
-	split 'tmux-terminal-vertical kak -c %val{session}<ret>'
+	split 'tmux-terminal-vertical kak -c %val{session}'
 
 define-command \
 	-docstring 'Vertical split' \
-	vsplit 'tmux-terminal-horizontal kak -c %val{session}<ret>'
+	vsplit 'tmux-terminal-horizontal kak -c %val{session}'
 
 alias global wqa 'write-all-quit'
 alias global sp 'split'
@@ -242,6 +244,17 @@ define-command -hidden find-buffer-internal -params 0.. %{ nop %sh{
 }}
 
 # hooks -----------------------------------------------------------------------
+# source a local .kakrc for project-local configuration
+hook global KakBegin .* %{ evaluate-commands %sh{
+	while [ "$PWD" != "/" ]; do
+		if [ -f .kakrc ]; then
+			printf %s\\n "source '$PWD"/.kakrc"
+			break
+		fi
+
+		cd .. # only changes the subshell's dir
+	done
+}}
 
 # consider .clang-format yaml
 hook global BufCreate .clang-format %{
