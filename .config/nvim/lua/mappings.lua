@@ -1,7 +1,7 @@
 vim.g.mapleader = ","
 
 -- delete default keybinds that conflict with custom ones
-vim.keymap.del("n", "gcc"); -- comment line
+vim.keymap.del("n", "gcc") -- comment line
 
 -- easier split navigation
 vim.keymap.set("", "<C-h>", "<C-w>h")
