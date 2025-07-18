@@ -13,5 +13,6 @@ source /usr/share/bash-completion/completions/git
 PROMPT_COMMAND=buildPrompt
 EDITOR=nvim
 FZF_DEFAULT_OPTS_FILE=~/.config/fzf/fzfrc
+ZK_NOTEBOOK_DIR=~/notes
 
 PATH=~/bin:~/bin/bin:$PATH
