@@ -11,8 +11,8 @@ source ~/.config/broot/launcher/bash/br
 source /usr/share/bash-completion/completions/git
 
 PROMPT_COMMAND=buildPrompt
-EDITOR=nvim
-FZF_DEFAULT_OPTS_FILE=~/.config/fzf/fzfrc
-ZK_NOTEBOOK_DIR=~/notes
+export EDITOR=nvim
+export FZF_DEFAULT_OPTS_FILE=~/.config/fzf/fzfrc
+export ZK_NOTEBOOK_DIR=~/notes
 
-PATH=~/bin:~/bin/bin:$PATH
+export PATH=~/bin:~/bin/bin:$PATH
