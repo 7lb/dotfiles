@@ -10,7 +10,7 @@ vim.lsp.config("clangd", {
 
 	root_markers = {
 		".clangd",
-		"clang-format",
+		".clang-format",
 		"compile_commands.json",
 	},
 
