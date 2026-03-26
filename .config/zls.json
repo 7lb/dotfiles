@@ -1,8 +1,6 @@
 {
 	"enable_snippets": false,
-	"enable_build_on_save": true,
+	"enable_build_on_save": false,
 	"inlay_hints_exclude_single_argument": false,
-	"warn_style": true,
-	"highlight_global_var_declarations": true,
-	"skip_std_references": true
+	"warn_style": true
 }

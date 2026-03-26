@@ -52,9 +52,7 @@ end
 
 return {
 	"mfussenegger/nvim-dap",
-	dependencies = {
-		{ "igorlfs/nvim-dap-view", opts = { windows = { terminal = { hide = { "gdb" } } } } },
-	},
+	dependencies = {"igorlfs/nvim-dap-view"},
 
 	config = function()
 		local dap = require("dap")
@@ -105,6 +103,23 @@ return {
 			request = "attach",
 			pid = get_pids,
 			cwd = "${workspaceFolder}",
+		}}
+
+		dap.configurations.zig = {{
+			name = "gdb launch",
+			type = "gdb",
+			request = "launch",
+			program = get_executables,
+			cwd = "${workspaceFolder}",
+			stopAtBeginningOfMainSubprogram = false,
+		}, {
+			name = "lldb launch",
+			type = "lldb",
+			request = "launch",
+			program = get_executables,
+			cwd = "${workspaceFolder}",
+			stopOnEntry = false,
+			runInTerminal = true,
 		}}
 	end,
 }
