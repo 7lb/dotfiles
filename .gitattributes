@@ -1,4 +1,0 @@
-notes/.zk/notebook.db  filter=crypt diff=crypt merge=crypt
-notes/*.md  filter=crypt diff=crypt merge=crypt
-notes/journal/*.md  filter=crypt diff=crypt merge=crypt
-notes/projects/**/*.md  filter=crypt diff=crypt merge=crypt

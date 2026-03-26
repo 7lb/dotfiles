@@ -13,7 +13,6 @@ source /usr/share/bash-completion/completions/git
 PROMPT_COMMAND=buildPrompt
 export EDITOR=nvim
 export FZF_DEFAULT_OPTS_FILE=~/.config/fzf/fzfrc
-export ZK_NOTEBOOK_DIR=~/notes
 
 export ZVM_PATH=${XDG_DATA_HOME-$HOME/.local/share}/zvm
 export PATH=~/bin:~/bin/bin:$ZVM_PATH/bin:$PATH
